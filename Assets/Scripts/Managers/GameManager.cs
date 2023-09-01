@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {   
@@ -26,12 +25,8 @@ public class GameManager : MonoBehaviour
     [Header("Sliding Gate")]
     public int numOfBulletsInLoad;
 
-    [Header("Visual")]
-    public GameObject mainCam,startingCam;
-    Vector3 camStartingPos;
-
     [Header("Ending")]
-    public GameObject endSniper;
+    public GameObject endWeapon;
     public Vector3 rotationSpeed = new Vector3(100, 0, 0); // Adjust the rotation speed as needed
 
     [Header("Magazine")]
@@ -41,7 +36,11 @@ public class GameManager : MonoBehaviour
     public List<GameObject> levels;
     public int numOfPresetLevels;
     public Transform levelSpawnTransform;
-    
+    [Header("Visual")]
+    public GameObject mainCam,startingCam,endingCam,upgradeCam;
+
+    [Header("KnockBack")]
+    public int playerKnockBackValue;
 
     ////
     ////   ***********<SUMMARY>*************
@@ -64,8 +63,7 @@ public class GameManager : MonoBehaviour
     {
         UpdatePlayerDamage();
         LevelChooser();
-        endSniper = GameObject.FindGameObjectWithTag("EndSnip");
-        camStartingPos = mainCam.transform.localPosition;
+        endWeapon = GameObject.FindGameObjectWithTag("EndWeapon");
     }
 
     public void LevelChooser()
@@ -87,7 +85,7 @@ public class GameManager : MonoBehaviour
 
     private void Update() 
     {
-        endSniper.transform.Rotate(rotationSpeed * Time.deltaTime);
+        endWeapon.transform.Rotate(rotationSpeed * Time.deltaTime);
     }
 
     public void EndLevel()
@@ -97,20 +95,14 @@ public class GameManager : MonoBehaviour
         UIManager.instance.FinishHud();
     }
     
-    public void CameraStateChange()
+    public void EnableCam(GameObject newCam)
     {
-        if(startingCam.activeSelf)
-        {
+        newCam.SetActive(true);
+    }
 
-            mainCam.GetComponent<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
-            startingCam.SetActive(false);
-        }
-        else
-        {
-            mainCam.GetComponent<CinemachineBrain>().m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
-            startingCam.SetActive(true);
-        }   
-        
+    public void FinishLinePassed()
+    {
+        EnableCam(endingCam);
     }
 
    
@@ -121,4 +113,5 @@ public class GameManager : MonoBehaviour
         Player.instance.SavePlayerData();
         SceneManager.LoadScene(0);
     }
+    
 }

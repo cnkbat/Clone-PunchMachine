@@ -117,7 +117,6 @@ public class UIManager : MonoBehaviour
     {
         startButton.interactable = false;
         GameManager.instance.gameHasStarted = true;
-        GameManager.instance.CameraStateChange();
         canHideStartingUI = true;
     }
     private void HideStartingUI()
@@ -143,8 +142,9 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateInitYearText()
     {
-        initYearNumber.text = Player.instance.GetInGameInitYear().ToString();
+        initYearNumber.text = Player.instance.initYear.ToString();
     }
+
     public void UpdateMoneyText()
     {
         playerMoneyText.text = Player.instance.money.ToString();
@@ -154,7 +154,6 @@ public class UIManager : MonoBehaviour
         currentLevelText.text = SceneManager.GetActiveScene().name;
         UpdateInitYearText();
         UpdateMoneyText();
-        playerStarsText.text = Player.instance.stars.ToString();
 
         fireRateLevelText.text = "Level " + (Player.instance.fireRateValueIndex + 1).ToString();
         initYearLevelText.text = "Level " + (Player.instance.initYearValueIndex + 1).ToString();

@@ -74,21 +74,16 @@ public class Player : MonoBehaviour
         SetUpgradedValues();
 
         originalMoveSpeed = forwardMoveSpeed;
-        SetWSTransformsPos();
-        SetWeaponsInitYearTextState(true);
     }
 
     void Update() 
     {   
         if(!GameManager.instance.gameHasStarted) return;
         if(GameManager.instance.gameHasEnded) return;
-
-        if(!GameManager.instance.gameHasEnded && !GameManager.instance.upgradePhase)
+       
+        if(!knockbacked)
         {
-            if(!knockbacked)
-            {
-                MoveCharacter();
-            }
+            MoveCharacter();
         }
     }
 
@@ -101,10 +96,6 @@ public class Player : MonoBehaviour
         else if(other.CompareTag("FinishLine"))
         {
             GameManager.instance.FinishLinePassed();
-        }
-        else if(other.CompareTag("UpgradeLine"))
-        {
-            GameManager.instance.UpgradePhase();
         }
     }
 
@@ -148,11 +139,7 @@ public class Player : MonoBehaviour
     public void KnockbackPlayer()
     {
         knockbacked = true;
-        for (int i = 0; i < weaponSelectors.Count; i++)
-        {
-            weaponSelectors[i].
-                GetComponent<WeaponSelector>().IncrementInGameInitYear(GameManager.instance.playerKnockbackValue);
-        }
+        IncrementPlayersInitYear(GameManager.instance.playerKnockBackValue);
 
         UIManager.instance.DisplayInitYearReduce();
         
@@ -199,86 +186,8 @@ public class Player : MonoBehaviour
             fireRangeValueIndex = data.fireRangeValueIndex;
         }
     }
-
-    public void SetWSTransformsPos()
-    {
-        for (int i = 0; i < GameManager.instance.weaponSelectorCount / 2; i++)
-        {
-            Vector3 nextSpawnPos = new Vector3(weaponSelectorsTransformPositive[i].position.x + GameManager.instance.weaponSelectorSize,
-                weaponSelectorsTransformPositive[i].position.y,weaponSelectorsTransformPositive[i].position.z);
-            GameObject newTransform = Instantiate(WStransfromPrefab,nextSpawnPos,Quaternion.identity);
-            newTransform.transform.parent = transform;
-            weaponSelectorsTransformPositive.Add(newTransform.transform);
-        }
-        for (int i = 0; i < GameManager.instance.weaponSelectorCount / 2; i++)
-        {
-            Vector3 nextSpawnPos = new Vector3(weaponSelectorsTransformNegative[i].position.x - GameManager.instance.weaponSelectorSize,
-                weaponSelectorsTransformNegative[i].position.y,weaponSelectorsTransformNegative[i].position.z);
-            GameObject newTransform = Instantiate(WStransfromPrefab,nextSpawnPos,Quaternion.identity);
-            newTransform.transform.parent = transform;
-            weaponSelectorsTransformNegative.Add(newTransform.transform);
-        }
-    }
-
-    public void SpawnWeaponSelector(GameObject objectToSpawn, float fireRange , float fireRate, int initYear)
-    {
-        if(positiveTurn)
-        {
-            GameObject spawnedWS = Instantiate(objectToSpawn,weaponSelectorsTransformPositive[WSPositiveList.Count].position,Quaternion.identity);
-            spawnedWS.GetComponent<WeaponSelector>().SetInGameFireRange(fireRange);
-            spawnedWS.GetComponent<WeaponSelector>().SetInGameFireRate(fireRate);
-            spawnedWS.GetComponent<WeaponSelector>().SetInGameInitYear(initYear);
-            spawnedWS.GetComponent<WeaponSelector>().isCollectable = false;
-            spawnedWS.GetComponent<WeaponSelector>().isFirstWS =false;
-
-            spawnedWS.GetComponent<Rigidbody>().useGravity = true;
-            spawnedWS.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-
-            spawnedWS.gameObject.layer = LayerMask.NameToLayer("Player");
-            //spawnedWS.GetComponent<WeaponSelector>().SetStartingValues();  
-
-
-            spawnedWS.transform.parent = transform;
-            WSPositiveList.Add(spawnedWS);
-            positiveTurn = false;
-
-            weaponSelectors.Add(spawnedWS);
-        }
-        else
-        {
-            GameObject spawnedWS = Instantiate(objectToSpawn,weaponSelectorsTransformNegative[WSNegativeList.Count].position,Quaternion.identity);
-            spawnedWS.GetComponent<WeaponSelector>().SetInGameFireRange(fireRange);
-            spawnedWS.GetComponent<WeaponSelector>().SetInGameFireRate(fireRate);
-            spawnedWS.GetComponent<WeaponSelector>().SetInGameInitYear(initYear);
-            spawnedWS.GetComponent<WeaponSelector>().isCollectable = false;
-            spawnedWS.GetComponent<WeaponSelector>().isFirstWS =false;
-
-            spawnedWS.GetComponent<Rigidbody>().useGravity = true;
-            spawnedWS.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-
-            spawnedWS.gameObject.layer = LayerMask.NameToLayer("Player");
-         //   spawnedWS.GetComponent<WeaponSelector>().SetStartingValues();   
-
-            
-            spawnedWS.transform.parent = transform;
-            WSNegativeList.Add(spawnedWS);
-            positiveTurn = true;
-            weaponSelectors.Add(spawnedWS);
-
-        }
-        
-        if(GameManager.instance.upgradePhase)
-        {
-            SetWeaponsInitYearTextState(true);
-        } 
-        else
-        {
-            SetWeaponsInitYearTextState(false);
-        }
-
-    }
     
-    public void SetWeaponsInitYearTextState(bool boolean)
+   /* public void SetWeaponsInitYearTextState(bool boolean)
     {
         for (int i = 0; i < weaponSelectors.Count; i++)
         {
@@ -287,7 +196,7 @@ public class Player : MonoBehaviour
                 weaponSelectors[i].GetComponent<WeaponSelector>().weapons[a].GetComponent<Weapon>().UpdateInitYearText(boolean);
             }
         }
-    }
+    } */
     
     // Getters And Setters
     public void SetMovementSpeed(float newMoveSpeed)
@@ -302,34 +211,26 @@ public class Player : MonoBehaviour
         fireRange = UpgradeManager.instance.fireRangeValues[fireRangeValueIndex];
         income = UpgradeManager.instance.incomeValues[incomeValueIndex];
 
-            weaponSelectors[0].
+         /*   weaponSelectors[0].
                 GetComponent<WeaponSelector>().SetStartingValues();   
-            weaponSelectors[0].GetComponent<WeaponSelector>(). WeaponSelecting();
+            weaponSelectors[0].GetComponent<WeaponSelector>(). WeaponSelecting(); */
     }
 
-    public void IncrementWeaponSelectorsInitYear(int value)
+    public void IncrementPlayersInitYear(int value)
     {
-        for (int i = 0; i < weaponSelectors.Count; i++)
-        {
-            weaponSelectors[i].
-                GetComponent<WeaponSelector>().IncrementInGameInitYear(value);   
-        }
+        initYear += value;
+        // SetstartingValue yapcaz
     }
-    public void IncrementWeaponSelectorsFireRate(float value)
+    public void IncrementPlayersFireRate(float value)
     {
-        for (int i = 0; i < weaponSelectors.Count; i++)
-        {
-            weaponSelectors[i].
-                GetComponent<WeaponSelector>().IncrementInGameFireRate(value);   
-        }
+        fireRate -= value;
+        // SetstartingValue yapcaz
+
     }
-    public void IncrementWeaponSelectorsFireRange(float value)
+    public void IncrementPlayersFireRange(float value)
     {
-        for (int i = 0; i < weaponSelectors.Count; i++)
-        {
-            weaponSelectors[i].
-                GetComponent<WeaponSelector>().IncrementInGameFireRange(value);   
-        }
+        fireRange += value;
+        // SetstartingValue yapcaz
     }
 
     public void IncrementMoney(int value)

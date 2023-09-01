@@ -4,18 +4,17 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public class Gate : MonoBehaviour
+public class Gate : MonoBehaviour , IDamagable , IInteractable
 {
     //Variables
     [Header("Gate Values")]
     [SerializeField] float positiveValue = 4.0f;
     [SerializeField] float negativeValue = -4.0f;
     [SerializeField] float gateValue;   
-    bool fireRateGate, fireRangeGate, yearGate;
+    [SerializeField] float inityearValueMin,inityearValueMax;
+    bool fireRateGate, fireRangeGate,yearGate;
     public bool isGateActive;
     float damage;
-    public BoxCollider boxCollider;
-    BoxCollider[] gatesBoxcolliders;
 
     [Header("Materials")]
 
@@ -32,6 +31,7 @@ public class Gate : MonoBehaviour
     [SerializeField] Vector3 hitEffectScale;
     [SerializeField] float hitEffectDur;
     [SerializeField] TMP_Text damageText;
+
     void Start()
     {
         isGateActive = true;
@@ -40,13 +40,6 @@ public class Gate : MonoBehaviour
         UpdateGateText();
         DamageSelectionAndTextUpdate();
         originalScale = transform.localScale;
-        if(transform.parent.tag == "GateManager")
-        {
-            if(transform.parent.GetComponentInChildren<BoxCollider>())
-            {
-                gatesBoxcolliders = transform.parent.GetComponentsInChildren<BoxCollider>();
-            }
-        }
         
     }
 
@@ -56,50 +49,14 @@ public class Gate : MonoBehaviour
         {
             int rand = Random.Range(1,3);
             damage = rand;
-            damageText.text = damage.ToString();
+            damageText.text = damage.ToString(); 
         }
         else if(yearGate)
         {
-            int rand = Random.Range(5,12);
+            int rand = Random.Range(2,4);
             damage = rand;
             damageText.text = damage.ToString();
-        }
-    }
-
-    private void OnTriggerEnter(Collider other) 
-    {
-        //according to the type of door is doing the relevant operation
-        if(other.CompareTag("Bullet") && isGateActive)
-        {
-            if(!other.GetComponent<Bullet>().stickmansBullet)
-            {
-                TakeDamage();
-            }
-            
-            Destroy(other.gameObject);
-        }
-        else if(other.CompareTag("Player") && isGateActive)
-        {
-            if(transform.parent.tag == "GateManager")
-            {
-                foreach (var collider in gatesBoxcolliders)
-                {   
-                    collider.enabled = false;
-                }
-            }
-            if(fireRateGate)
-            {
-                Player.instance.IncrementCurrentFireRate(gateValue);
-            }
-            else if(fireRangeGate)
-            {
-                Player.instance.IncrementInGameFireRange(gateValue);
-            }
-            else if(yearGate)
-            {
-                Player.instance.IncrementInGameInitYear(Mathf.RoundToInt(gateValue));
-            }
-            gameObject.SetActive(false);
+            gateValue = Mathf.Clamp(gateValue,-50,50);
         }
     }
 
@@ -133,8 +90,8 @@ public class Gate : MonoBehaviour
         {
             yearGate = true;
             gateOperatorText.text = "Init Year";
-            valueRand = Random.Range(-20,10);
-            gateValue = valueRand;
+            valueRand = Random.Range(inityearValueMin,inityearValueMax);
+            gateValue = Mathf.RoundToInt(valueRand);
         }
 
         if(gateValue >= 0)
@@ -153,26 +110,6 @@ public class Gate : MonoBehaviour
         }
     }
   
-    private void TakeDamage()
-    {
-        
-        gateValue += damage;
-        if(yearGate)
-        {
-            gateValue = Mathf.Clamp(gateValue,-100,50);
-        }
-        GateHitEffect();
-        UpdateGateText();
-
-        if(gateValue >= 0)
-        {
-            UpdateTheColorOfGate(greenPrimaryMaterial,greenSecondaryMat);
-        }
-        else if (gateValue < 0)
-        {
-            UpdateTheColorOfGate(redPrimaryMaterial,redSecondaryMat);
-        }
-    }  
     private void UpdateGateText()
     {
         gateValueText.text = gateValue.ToString();
@@ -182,6 +119,7 @@ public class Gate : MonoBehaviour
         float roundedValue = Mathf.Round(number * 2) / 2;
         return roundedValue;
     }
+
     private void GateHitEffect()
     {
         transform.DOScale(hitEffectScale,hitEffectDur).OnComplete(GateHitEffectReset);
@@ -190,5 +128,46 @@ public class Gate : MonoBehaviour
     private void GateHitEffectReset()
     {
         transform.DOScale(originalScale,hitEffectDur);
+    }
+
+    void IDamagable.TakeDamage()
+    {
+        gateValue += damage;
+        GateHitEffect();
+        if(yearGate)
+        {
+            gateValue = Mathf.Clamp(gateValue,-100,50);
+        }
+
+        if(gateValue >= 0)
+        {
+            UpdateTheColorOfGate(greenPrimaryMaterial,greenSecondaryMat);
+        }
+        else if (gateValue < 0)
+        {
+            UpdateTheColorOfGate(redPrimaryMaterial,redSecondaryMat);
+        }
+        UpdateGateText();
+    }
+
+    public void Interact()
+    {
+        if(isGateActive)
+        {
+            if(fireRateGate)
+            {
+                Player.instance.IncrementPlayersFireRate(gateValue);
+            }
+            else if(fireRangeGate)
+            {
+                Player.instance.IncrementPlayersFireRange(gateValue);
+            }
+            else if(yearGate)
+            {
+                Player.instance.IncrementPlayersInitYear(Mathf.RoundToInt(gateValue));
+            }
+
+            gameObject.SetActive(false);
+        }
     }
 }

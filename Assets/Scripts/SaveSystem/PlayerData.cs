@@ -10,7 +10,6 @@ public class PlayerData
     public int fireRateValueIndex;
     public int initYearValueIndex, incomeValueIndex;
     public int money;
-    public int stars; 
     
     public PlayerData(Player player)
     {
@@ -19,7 +18,6 @@ public class PlayerData
         initYearValueIndex = player.initYearValueIndex;
         incomeValueIndex = player.incomeValueIndex;
         money = player.money;
-        stars = player.stars;
         fireRangeValueIndex = player.fireRangeValueIndex;
     }
 }
