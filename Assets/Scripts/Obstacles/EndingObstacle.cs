@@ -42,9 +42,9 @@ public class EndingObstacle : MonoBehaviour , IDamagable, IInteractable
         GameManager.instance.EndLevel();
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float dmg)
     {
-        health -= Player.instance.playerDamage;
+        health -= dmg;
         UpdateHealthText();
         ObstacleHitEffect();
         if(health <= 0)

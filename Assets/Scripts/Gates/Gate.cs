@@ -11,26 +11,32 @@ public class Gate : MonoBehaviour , IDamagable , IInteractable
     [SerializeField] float positiveValue = 4.0f;
     [SerializeField] float negativeValue = -4.0f;
     [SerializeField] float gateValue;   
-    [SerializeField] float inityearValueMin,inityearValueMax;
-    bool fireRateGate, fireRangeGate,yearGate;
+
+    bool fireRateGate, fireRangeGate;
     public bool isGateActive;
     float damage;
+
+    [Header("Year Gate")]
+    bool yearGate;
+    [SerializeField] float inityearValueMin,inityearValueMax;
+    [SerializeField] float initYearClampValue;
 
     [Header("Materials")]
 
     [SerializeField] Material redPrimaryMaterial;
     [SerializeField] Material greenPrimaryMaterial;
 
-    [SerializeReference] Material greenSecondaryMat,redSecondaryMat;
+    [SerializeReference] Material greenSecondaryMat,redSecondaryMat, coinMat;
 
     [Header("Visual")] 
     [SerializeField] TMP_Text gateOperatorText;
     [SerializeField] TMP_Text gateValueText;
     [Header("Hit Effect")]
-    [SerializeField] Vector3 originalScale;
-    [SerializeField] Vector3 hitEffectScale;
-    [SerializeField] float hitEffectDur;
     [SerializeField] TMP_Text damageText;
+
+
+    [Header("HitPoints")]
+    public Transform hitPoint;
 
     void Start()
     {
@@ -39,7 +45,7 @@ public class Gate : MonoBehaviour , IDamagable , IInteractable
         ChooseOperation();
         UpdateGateText();
         DamageSelectionAndTextUpdate();
-        originalScale = transform.localScale;
+        
         
     }
 
@@ -56,7 +62,7 @@ public class Gate : MonoBehaviour , IDamagable , IInteractable
             int rand = Random.Range(2,4);
             damage = rand;
             damageText.text = damage.ToString();
-            gateValue = Mathf.Clamp(gateValue,-50,50);
+            gateValue = Mathf.Clamp(gateValue,-initYearClampValue,initYearClampValue);
         }
     }
 
@@ -120,20 +126,11 @@ public class Gate : MonoBehaviour , IDamagable , IInteractable
         return roundedValue;
     }
 
-    private void GateHitEffect()
-    {
-        transform.DOScale(hitEffectScale,hitEffectDur).OnComplete(GateHitEffectReset);
-    }
 
-    private void GateHitEffectReset()
-    {
-        transform.DOScale(originalScale,hitEffectDur);
-    }
-
-    void IDamagable.TakeDamage()
+    void IDamagable.TakeDamage(float dmg)
     {
         gateValue += damage;
-        GateHitEffect();
+
         if(yearGate)
         {
             gateValue = Mathf.Clamp(gateValue,-100,50);

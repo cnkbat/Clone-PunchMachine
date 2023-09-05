@@ -30,9 +30,18 @@ public class Player : MonoBehaviour
     public float income = 1;
     public float fireRate, fireRange;
 
-    [Header("Weapon Selectors")]
-    public List<GameObject> weaponSelectors;
+    [Tooltip("Current Attributes")]
+    private int inGameInitYear;
+    private float inGameFireRate,inGameFireRange;
+
+    [Header("Weapon")]
+    [SerializeField] GameObject currentWeapon;
+
+    [Header("Weapon Selecting")] 
+    [SerializeField] List<GameObject> weapons;
     public List<int> weaponChoosingInitYearsLimit;
+    [HideInInspector]
+    public int weaponIndex;
 
     [Header("Upgrade Index")]
         [Tooltip("Save & Load Value")]
@@ -42,19 +51,9 @@ public class Player : MonoBehaviour
     public int fireRangeValueIndex, initYearValueIndex, incomeValueIndex;
     public int money;
     public int currentLevelIndex;
-    public float playerDamage;
+    [SerializeField] float playerDamage;
+    public float currentPlayerDamage;
 
-    // public GameObject startingWeapon;
-
-    [HideInInspector]
-    public int weaponIndex;
-
-    [Header("UpgradePhase")]
-    [SerializeField] GameObject WStransfromPrefab;
-    [SerializeField] List<Transform> weaponSelectorsTransformPositive;
-    [SerializeField] List<Transform> weaponSelectorsTransformNegative;
-    [SerializeField] List<GameObject> WSPositiveList,WSNegativeList;
-    public bool positiveTurn, negativeTurn;
 
     private void Awake() 
     {
@@ -69,9 +68,9 @@ public class Player : MonoBehaviour
         rBody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         boxCollider = GetComponent<BoxCollider>();
-        tag = "Player";
-        LoadPlayerData();
+     //   LoadPlayerData();
         SetUpgradedValues();
+    //    WeaponSelector();
 
         originalMoveSpeed = forwardMoveSpeed;
     }
@@ -152,19 +151,114 @@ public class Player : MonoBehaviour
     {
         knockbacked = false;
     }    
-    public void PlayerDeath()
+    private void WeaponSelector()
     {
-
-        for (int i = 0; i < weaponSelectors.Count; i++)
+        
+        if(inGameInitYear <= weaponChoosingInitYearsLimit[0] && currentWeapon != weapons[0])
         {
-            weaponSelectors[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            weaponSelectors[i].GetComponent<Rigidbody>().useGravity = true;
-            weaponSelectors[i].GetComponent<BoxCollider>().enabled = true;
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].SetActive(false);
+            }
+            currentWeapon = weapons[0];
+            weaponIndex = 0;
+            currentWeapon.SetActive(true);
+        }
+        if(inGameInitYear > weaponChoosingInitYearsLimit[0] && initYear <= weaponChoosingInitYearsLimit[1] && currentWeapon != weapons[1]) 
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].SetActive(false);
+            }
+
+            currentWeapon = weapons[1];
+            weaponIndex = 1;
+            currentWeapon.SetActive(true);
+        }
+        if(inGameInitYear > weaponChoosingInitYearsLimit[1] && initYear <= weaponChoosingInitYearsLimit[2] && currentWeapon != weapons[2])
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].SetActive(false);
+            }
+
+            currentWeapon = weapons[2];
+            weaponIndex = 2;
+            currentWeapon.SetActive(true);
+        }
+        if(inGameInitYear > weaponChoosingInitYearsLimit[2] && initYear <= weaponChoosingInitYearsLimit[3] && currentWeapon != weapons[3])
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].SetActive(false);
+            }
+
+            weaponIndex = 3;
+            currentWeapon = weapons[3];
+            currentWeapon.SetActive(true);
         }
 
-        currentLevelIndex++;
+        if(inGameInitYear > weaponChoosingInitYearsLimit[3] && initYear <= weaponChoosingInitYearsLimit[4] && currentWeapon != weapons[4])
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].SetActive(false);
+            }
 
+            weaponIndex = 4;
+            currentWeapon = weapons[4];
+            currentWeapon.SetActive(true);
+        }
+
+        if(inGameInitYear > weaponChoosingInitYearsLimit[4] && initYear <= weaponChoosingInitYearsLimit[5] && currentWeapon != weapons[5])
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].SetActive(false);
+            }
+
+            weaponIndex = 5;
+            currentWeapon = weapons[5];
+            currentWeapon.SetActive(true);
+        }
+        if(inGameInitYear > weaponChoosingInitYearsLimit[5] && initYear <= weaponChoosingInitYearsLimit[6] && currentWeapon != weapons[6])
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].SetActive(false);
+            }
+
+            currentWeapon = weapons[6];
+            weaponIndex = 6;
+            currentWeapon.SetActive(true);
+        }
+        if(inGameInitYear > weaponChoosingInitYearsLimit[6] && initYear <= weaponChoosingInitYearsLimit[7] && currentWeapon != weapons[7])
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].SetActive(false);
+            }
+
+            weaponIndex = 7;
+            currentWeapon = weapons[7];
+            currentWeapon.SetActive(true);
+        }
+        currentWeapon.transform.parent = transform;
+        UpdatePlayersDamage();
     }
+
+    // weapon selector
+
+    public void PlayerDeath()
+    {
+        // Player anime girecek
+        currentLevelIndex++;
+    }
+    public void UpdatePlayersDamage()
+    {
+       currentPlayerDamage = playerDamage + currentWeapon.GetComponent<Weapon>().damage;
+    }
+
     // SAVE LOAD
     public void SavePlayerData()
     {
@@ -199,6 +293,26 @@ public class Player : MonoBehaviour
     } */
     
     // Getters And Setters
+    public int GetInGameInitYear()
+    {
+        return inGameInitYear;
+    }
+    public float GetInGameFireRange()
+    {
+        return inGameFireRange;
+    }
+    public float GetInGateFireRate()
+    {
+        return inGameFireRate;
+    }
+
+    private void SetStartingValues()
+    {
+        inGameFireRange = fireRange;
+        inGameFireRate = fireRate;
+        inGameInitYear = initYear;
+        
+    }
     public void SetMovementSpeed(float newMoveSpeed)
     {
         forwardMoveSpeed = newMoveSpeed;
@@ -210,12 +324,11 @@ public class Player : MonoBehaviour
         fireRate = UpgradeManager.instance.fireRateValues[fireRateValueIndex];
         fireRange = UpgradeManager.instance.fireRangeValues[fireRangeValueIndex];
         income = UpgradeManager.instance.incomeValues[incomeValueIndex];
-
-         /*   weaponSelectors[0].
-                GetComponent<WeaponSelector>().SetStartingValues();   
-            weaponSelectors[0].GetComponent<WeaponSelector>(). WeaponSelecting(); */
+        
+        SetStartingValues();
     }
 
+    // AYNI ŞEKİLDE BUNLARIN İNGAME OLANI DA LAZIM KAPI FALAN
     public void IncrementPlayersInitYear(int value)
     {
         initYear += value;

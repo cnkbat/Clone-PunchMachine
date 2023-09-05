@@ -21,26 +21,32 @@ public class GameManager : MonoBehaviour
     [Header("Stickman")]
     public float stickmanFireRate;
     public float stickmanFireRange;
+    public float stickmanTravelDur, stickmanTravelDist; // platformun xinde hareket edecek dist o olacak
 
     [Header("Sliding Gate")]
-    public int numOfBulletsInLoad;
+    public int numOfPunchBagInLoad;
 
     [Header("Ending")]
     public GameObject endWeapon;
     public Vector3 rotationSpeed = new Vector3(100, 0, 0); // Adjust the rotation speed as needed
 
-    [Header("Magazine")]
-    public float magazineTravelDur;
-
     [Header("LevelSelector")]
     public List<GameObject> levels;
     public int numOfPresetLevels;
     public Transform levelSpawnTransform;
+
     [Header("Visual")]
     public GameObject mainCam,startingCam,endingCam,upgradeCam;
 
     [Header("KnockBack")]
     public int playerKnockBackValue;
+    [Header("LeftPlatform")]
+    public GameObject leftPlatform;
+    public float leftPlatformHeight;
+
+    [Header("Collecting Bags")]
+    public int maxNumOfCollectingBags;
+    public float bagCollectionMoveDur;
 
     ////
     ////   ***********<SUMMARY>*************
@@ -61,8 +67,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        UpdatePlayerDamage();
-        LevelChooser();
+      //  LevelChooser();
         endWeapon = GameObject.FindGameObjectWithTag("EndWeapon");
     }
 
@@ -78,15 +83,11 @@ public class GameManager : MonoBehaviour
             Instantiate(levels[levelRand],levelSpawnTransform.position,Quaternion.identity);
         }
     }
-    public void UpdatePlayerDamage()
-    {
-        playerDamage = Player.instance.playerDamage;
-    }
 
-    private void Update() 
+    /*private void Update() 
     {
         endWeapon.transform.Rotate(rotationSpeed * Time.deltaTime);
-    }
+    } */
 
     public void EndLevel()
     {
@@ -109,7 +110,6 @@ public class GameManager : MonoBehaviour
     // buttona basıldığında gerçekleşecek
     public void LoadNextScene()
     {
-        Player.instance.currentLevelIndex++;
         Player.instance.SavePlayerData();
         SceneManager.LoadScene(0);
     }
