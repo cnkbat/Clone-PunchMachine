@@ -44,13 +44,15 @@ public class Punch : MonoBehaviour
         isAttacking = true;
         boxCollider.enabled = true;
         firedPointCurrent = firedPoint.position;
-    }
 
+        float moveDur = relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2;
+        moveSpeed = fireDist / moveDur;
+    }
     private void ReturnPunch()
     {
         isAttacking = false;
         boxCollider.enabled = false;
-        transform.DOLocalMove(startingLocalPos, 0.2f);
+        transform.DOLocalMove(startingLocalPos, relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2);
         relatedWeapon.GetComponent<Weapon>().isPunchReturned = true;
     }
 
@@ -59,6 +61,7 @@ public class Punch : MonoBehaviour
         if(other.TryGetComponent(out IDamagable damagable))
         {
             damagable.TakeDamage(Player.instance.currentPlayerDamage);
+            ReturnPunch();
         }
     }
     

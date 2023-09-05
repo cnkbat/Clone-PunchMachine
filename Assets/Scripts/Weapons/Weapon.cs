@@ -68,6 +68,10 @@ public class Weapon : MonoBehaviour
     {
         return Player.instance.GetInGameFireRange() + fireRange;
     }
+    public float GetWeaponsFireRate()
+    {
+        return Player.instance.GetInGateFireRate() + fireRate;
+    }
     private void UpdateFireRate()
     {
         currentFireRate = Player.instance.GetInGateFireRate() + fireRate;
