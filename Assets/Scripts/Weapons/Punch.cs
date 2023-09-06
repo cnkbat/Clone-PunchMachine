@@ -10,6 +10,8 @@ public class Punch : MonoBehaviour
     [SerializeField] BoxCollider boxCollider;
     public Transform firedPoint;
     private Vector3 firedPointCurrent;
+    [SerializeField] GameObject relatedBone;
+
     [Header("Attiributes")]
     [SerializeField] float moveSpeed;
     
@@ -31,6 +33,7 @@ public class Punch : MonoBehaviour
         if(!(Vector3.Distance(firedPointCurrent,transform.position) > fireDist))
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveSpeed * Time.deltaTime);
+            relatedBone.transform.position = transform.position;
         }   
         else
         {
@@ -47,12 +50,14 @@ public class Punch : MonoBehaviour
 
         float moveDur = relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2;
         moveSpeed = fireDist / moveDur;
+        Debug.Log("attacking");
     }
     private void ReturnPunch()
     {
         isAttacking = false;
         boxCollider.enabled = false;
         transform.DOLocalMove(startingLocalPos, relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2);
+        relatedBone.transform.DOLocalMove(startingLocalPos, relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2);
         relatedWeapon.GetComponent<Weapon>().isPunchReturned = true;
     }
 

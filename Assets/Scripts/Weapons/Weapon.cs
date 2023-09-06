@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour
     public float damage;
 
     [Header("Punching")]
-    public GameObject leftPunch;
+    public GameObject leftPunch ;
     public GameObject rightPunch;
     public bool leftPunchTurn, rightPunchTurn;
     public bool isPunchReturned = true;
@@ -52,6 +52,7 @@ public class Weapon : MonoBehaviour
         {
             leftPunch.GetComponent<Punch>().Strike();
             leftPunch.GetComponent<Punch>().firedPoint = transform;
+          //  leftPunchBone.GetComponent<Punch>().Strike();
             leftPunchTurn = false;
             isPunchReturned = false;
         } 
