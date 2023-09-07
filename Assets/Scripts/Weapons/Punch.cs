@@ -19,21 +19,24 @@ public class Punch : MonoBehaviour
 
     [Header("Punching")]
     [SerializeField] bool isAttacking;
-    [SerializeField] Vector3 startingLocalPos;
+    [SerializeField] Vector3 startingLocalPos, boneStartingPos;
 
     private void Start() 
     {
         startingLocalPos = transform.localPosition;
+        boneStartingPos = relatedBone.transform.localPosition;
     }
 
     void Update()
     {
+       // relatedBone.transform.position = transform.position;
         if(!isAttacking) return;
 
         if(!(Vector3.Distance(firedPointCurrent,transform.position) > fireDist))
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveSpeed * Time.deltaTime);
             relatedBone.transform.position = transform.position;
+
         }   
         else
         {
@@ -43,6 +46,7 @@ public class Punch : MonoBehaviour
 
     public void Strike()
     {
+        // strike rotation vercez
         fireDist =  relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRange();
         isAttacking = true;
         boxCollider.enabled = true;
@@ -54,10 +58,11 @@ public class Punch : MonoBehaviour
     }
     private void ReturnPunch()
     {
+        // strike rotation geri düzeltcez
         isAttacking = false;
         boxCollider.enabled = false;
-        transform.DOLocalMove(startingLocalPos, relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2);
-        relatedBone.transform.DOLocalMove(startingLocalPos, relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2);
+        transform.DOLocalMove(startingLocalPos, relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2).
+            OnUpdate(() => relatedBone.transform.position = transform.position);
         relatedWeapon.GetComponent<Weapon>().isPunchReturned = true;
     }
 
