@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public class Gate : MonoBehaviour , IDamagable , IInteractable
+public class Gate : DamagableObject , IDamagable , IInteractable
 {
     //Variables
     [Header("Gate Values")]
@@ -33,10 +33,6 @@ public class Gate : MonoBehaviour , IDamagable , IInteractable
     [SerializeField] TMP_Text gateValueText;
     [Header("Hit Effect")]
     [SerializeField] TMP_Text damageText;
-
-
-    [Header("HitPoints")]
-    public Transform hitPoint;
 
     void Start()
     {

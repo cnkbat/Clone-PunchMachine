@@ -23,14 +23,15 @@ public class Weapon : MonoBehaviour
         leftPunch.GetComponent<Punch>().SetRelatedWeapon(gameObject);
         rightPunch.GetComponent<Punch>().SetRelatedWeapon(gameObject);
         leftPunchTurn = true;
-       
     }
 
     private void Update() 
     {
       /*  if(!GameManager.instance.gameHasStarted) return;
         if(GameManager.instance.gameHasEnded) return; */
+        
         if(!isPunchReturned) return;
+    
         if(Player.instance.knockbacked)
         {
             UpdateFireRate();
@@ -52,7 +53,7 @@ public class Weapon : MonoBehaviour
         {
             leftPunch.GetComponent<Punch>().Strike();
             leftPunch.GetComponent<Punch>().firedPoint = transform;
-          //  leftPunchBone.GetComponent<Punch>().Strike();
+           
             leftPunchTurn = false;
             isPunchReturned = false;
         } 

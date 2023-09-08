@@ -6,22 +6,18 @@ using DG.Tweening;
 public class SlidingGate : MonoBehaviour
 {
     [Header("Load")]
-    [SerializeField] List<GameObject> bagsInLoad;
+    public List<GameObject> bagsInLoad = new List<GameObject>();
 
     [SerializeField] int loadValue;
     public int firstLoadInitYear,secondLoadInitYear,thirdLoadInitYear;
     [SerializeField] BoxCollider firstBoxCol,secondBoxCol,thirdBoxCol;
-
-
-    [Header("Bucket")]
-    public Transform bucketTransform;
 
     [Header("Gate")]
     [SerializeField] Material greenMat;
     [SerializeField] GameObject firstGate,secondGate,thirdGate;
 
     [Header("Collecting Bag")]
-    [SerializeField] List<Transform> bagCollectionStops;
+    public List<Transform> bagCollectionStops = new List<Transform>();
     private void Start() 
     {
         firstBoxCol.enabled = false;
@@ -34,8 +30,6 @@ public class SlidingGate : MonoBehaviour
         if(bagsInLoad.Count >= GameManager.instance.maxNumOfCollectingBags) return;
         
         // Perde kısmının nasıl olacağını buradan ayarlicaz
-
-
 
 
         if(bagsInLoad.Count >= loadValue)
@@ -67,16 +61,16 @@ public class SlidingGate : MonoBehaviour
 
     public void CollectBag(GameObject collectedBag, Transform leftPlatform)
     {
-       
+
         float collectionMoveDur  = GameManager.instance.bagCollectionMoveDur;
-        collectedBag.transform.DOMove(leftPlatform.position,collectionMoveDur * 3).
+        collectedBag.transform.DOMove(leftPlatform.position,collectionMoveDur * 2).
             OnComplete(() => collectedBag.transform.DOMove(bagCollectionStops[0].position,collectionMoveDur)).
             OnComplete(() => collectedBag.transform.DOMove(bagCollectionStops[1].position,collectionMoveDur)).
             OnComplete(() => collectedBag.transform.DOMove(bagCollectionStops[2].position,collectionMoveDur)).
             OnComplete(() => collectedBag.transform.DOMove(bagCollectionStops[3].position,collectionMoveDur)).
             OnComplete(() => bagsInLoad.Add(collectedBag))
             .OnComplete(LoadGate);
-
+        Debug.Log("collectbag on move");
     }
 
 }

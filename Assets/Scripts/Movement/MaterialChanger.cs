@@ -6,6 +6,8 @@ public class MaterialChanger : MonoBehaviour
 {
     [SerializeField] Material mat;
     float value;
+    [SerializeField] bool leftPlatformMat;
+
     void Start()
     {
         mat = GetComponent<Renderer>().material;
@@ -13,7 +15,14 @@ public class MaterialChanger : MonoBehaviour
 
     void Update()
     {
-        value -= Time.deltaTime;
+        if(leftPlatformMat)
+        {
+            value += Time.deltaTime * 10;
+        }
+        else 
+        {
+            value -= Time.deltaTime;
+        }
         mat.mainTextureOffset = new Vector2(1,value);
     }
 }

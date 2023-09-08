@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class CoinGate : MonoBehaviour,IInteractable,IDamagable
+public class CoinGate : DamagableObject,IInteractable,IDamagable
 {
     [SerializeField] List<int> coinStartingValues;
-    public Transform hitPoint;
     [SerializeField] int gateValue;
     [SerializeField] TMP_Text gateValueText;
-
     [SerializeField] int increasingValue;
     void Start()
     {

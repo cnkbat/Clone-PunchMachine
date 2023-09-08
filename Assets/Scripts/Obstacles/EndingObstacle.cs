@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public class EndingObstacle : MonoBehaviour , IDamagable, IInteractable
+public class EndingObstacle : DamagableObject , IDamagable, IInteractable
 {
     [SerializeField] float health = 10;
     [SerializeField] GameObject money;
