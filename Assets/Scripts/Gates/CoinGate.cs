@@ -17,18 +17,20 @@ public class CoinGate : DamagableObject,IInteractable,IDamagable
     
     void UpdateGateValueText()
     {
-        gateValueText.text = gateValue.ToString();
+        gateValueText.text = "+" + gateValue.ToString();
     }
 
     public void Interact()
     {
+        Debug.Log("inter");
         Player.instance.IncrementMoney(gateValue);
         Destroy(gameObject);
     }
 
     public void TakeDamage(float dmg)
     {
-        gateValue += increasingValue;
+        gateValue += Mathf.RoundToInt(dmg);
         UpdateGateValueText();
     }
+    
 }

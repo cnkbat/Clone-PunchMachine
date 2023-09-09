@@ -22,11 +22,9 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     [SerializeField] float initYearClampValue;
 
     [Header("Materials")]
-
+    [SerializeField] GameObject insideGate;
     [SerializeField] Material redPrimaryMaterial;
     [SerializeField] Material greenPrimaryMaterial;
-
-    [SerializeReference] Material greenSecondaryMat,redSecondaryMat, coinMat;
 
     [Header("Visual")] 
     [SerializeField] TMP_Text gateOperatorText;
@@ -37,11 +35,9 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     void Start()
     {
         isGateActive = true;
-        tag = "Gate";
         ChooseOperation();
         UpdateGateText();
         DamageSelectionAndTextUpdate();
-        
         
     }
 
@@ -49,7 +45,9 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     {
         if(!yearGate)
         {
-            int rand = Random.Range(1,3);
+            int rand = Random.Range(-3,3);
+            if(rand == 0) ++rand;
+
             damage = rand;
             damageText.text = damage.ToString(); 
         }
@@ -62,19 +60,18 @@ public class Gate : DamagableObject , IDamagable , IInteractable
         }
     }
 
-    private void UpdateTheColorOfGate(Material newPrimaryColor, Material newSecondaryColor)
+    private void UpdateTheColorOfGate(Material newPrimaryColor)
     {
         // childlarını doğru bulup ona göre update edicez
-        GetComponent<MeshRenderer>().materials[0].color = newPrimaryColor.color;
-        GetComponent<MeshRenderer>().materials[1].color = newSecondaryColor.color;
+        insideGate.GetComponent<MeshRenderer>().materials[0].color = newPrimaryColor.color;
     }
 
     private void ChooseOperation()
     {
         int chooseRand = Random.Range(0,3);
         float valueRand = Random.Range(negativeValue,positiveValue);
-        float halfValueRand = RoundToClosestHalf(valueRand);
-        gateValue = halfValueRand;
+
+        gateValue = Mathf.RoundToInt(valueRand);
 
 
         // textleri de ona göre yazıcaz
@@ -98,16 +95,16 @@ public class Gate : DamagableObject , IDamagable , IInteractable
 
         if(gateValue >= 0)
         {
-            if(GetComponent<MeshRenderer>().materials[0].color != greenPrimaryMaterial.color)
+            if(insideGate.GetComponent<MeshRenderer>().materials[0].color != greenPrimaryMaterial.color)
             {
-                UpdateTheColorOfGate(greenPrimaryMaterial,greenSecondaryMat);
+                UpdateTheColorOfGate(greenPrimaryMaterial);
             }
         }
         else if (gateValue < 0)
         {
-            if(GetComponent<MeshRenderer>().materials[0].color != redPrimaryMaterial.color)
+            if(insideGate.GetComponent<MeshRenderer>().materials[0].color != redPrimaryMaterial.color)
             {
-                UpdateTheColorOfGate(redPrimaryMaterial,redSecondaryMat);
+                UpdateTheColorOfGate(redPrimaryMaterial);
             }
         }
     }
@@ -115,11 +112,6 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     private void UpdateGateText()
     {
         gateValueText.text = gateValue.ToString();
-    }
-    public float RoundToClosestHalf(float number)
-    {
-        float roundedValue = Mathf.Round(number * 2) / 2;
-        return roundedValue;
     }
 
 
@@ -134,11 +126,11 @@ public class Gate : DamagableObject , IDamagable , IInteractable
 
         if(gateValue >= 0)
         {
-            UpdateTheColorOfGate(greenPrimaryMaterial,greenSecondaryMat);
+            UpdateTheColorOfGate(greenPrimaryMaterial);
         }
         else if (gateValue < 0)
         {
-            UpdateTheColorOfGate(redPrimaryMaterial,redSecondaryMat);
+            UpdateTheColorOfGate(redPrimaryMaterial);
         }
         UpdateGateText();
     }

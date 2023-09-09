@@ -64,7 +64,12 @@ public class Punch : MonoBehaviour
             Debug.Log(hit.collider.gameObject.name);
             
             strikingObject = hit.collider.gameObject;
-            int hitRandValue = Random.Range(0,strikingObject.GetComponent<DamagableObject>().hitPoints.Count);
+            int hitRandValue;
+            
+            if(strikingObject.GetComponent<DamagableObject>().hitPoints.Count > 1)
+            {
+                hitRandValue = Random.Range(0,strikingObject.GetComponent<DamagableObject>().hitPoints.Count);
+            } else hitRandValue = 0;
 
             transform.DOMove(strikingObject.GetComponent<DamagableObject>().hitPoints[hitRandValue].position,moveDur).
                 OnUpdate(() => relatedBone.transform.position = transform.position);

@@ -200,7 +200,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7da527d7096d0664f957bbca0a796722, type: 2}
+  - {fileID: 2100000, guid: ed5abbcacb9965a478ad0ee55478e7c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -500,7 +500,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7da527d7096d0664f957bbca0a796722, type: 2}
+  - {fileID: 2100000, guid: ed5abbcacb9965a478ad0ee55478e7c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1938,7 +1938,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7da527d7096d0664f957bbca0a796722, type: 2}
+  - {fileID: 2100000, guid: ed5abbcacb9965a478ad0ee55478e7c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2200,7 +2200,7 @@ MonoBehaviour:
   firstBoxCol: {fileID: 4891980316203240381}
   secondBoxCol: {fileID: 1488976412}
   thirdBoxCol: {fileID: 822366541}
-  greenMat: {fileID: 2100000, guid: 7755735131c0ada469701a7947f11fee, type: 2}
+  greenMat: {fileID: 2100000, guid: 77cd3147cf2ffc14bbf17301e5dab1ac, type: 2}
   firstGate: {fileID: 5617039354739587749}
   secondGate: {fileID: 1488976410}
   thirdGate: {fileID: 822366539}
