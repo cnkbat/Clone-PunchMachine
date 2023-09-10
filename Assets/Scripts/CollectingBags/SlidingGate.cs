@@ -18,6 +18,7 @@ public class SlidingGate : MonoBehaviour
 
     [Header("Collecting Bag")]
     public List<Transform> bagCollectionStops = new List<Transform>();
+    
     private void Start() 
     {
         firstBoxCol.enabled = false;
@@ -28,9 +29,6 @@ public class SlidingGate : MonoBehaviour
     public void LoadGate()
     {
         if(bagsInLoad.Count >= GameManager.instance.maxNumOfCollectingBags) return;
-        
-        // Perde kısmının nasıl olacağını buradan ayarlicaz
-
 
         if(bagsInLoad.Count >= loadValue)
         {

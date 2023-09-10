@@ -49,8 +49,15 @@ public class Gate : DamagableObject , IDamagable , IInteractable
             if(rand == 0) ++rand;
 
             damage = rand;
-            damageText.text = damage.ToString(); 
+            damageText.text = damage.ToString();
+
+            if(damage < 0)
+            {
+                damageText.color = Color.red;
+            }
+
         }
+
         else if(yearGate)
         {
             int rand = Random.Range(2,4);
@@ -58,7 +65,9 @@ public class Gate : DamagableObject , IDamagable , IInteractable
             damageText.text = damage.ToString();
             gateValue = Mathf.Clamp(gateValue,-initYearClampValue,initYearClampValue);
         }
+
     }
+
 
     private void UpdateTheColorOfGate(Material newPrimaryColor)
     {

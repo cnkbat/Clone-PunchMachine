@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3142548947467806018}
   - component: {fileID: 5699543520788457346}
   - component: {fileID: 1458807476178001705}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8184698137563730040}
   - component: {fileID: 3417038745118251137}
   - component: {fileID: 919132147495628563}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Saw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 5036226173042199325}
   - component: {fileID: 4330515150129462659}
   - component: {fileID: 5268958118988325212}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

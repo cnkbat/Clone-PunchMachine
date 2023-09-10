@@ -71,7 +71,8 @@ public class Player : MonoBehaviour
      //   LoadPlayerData();
         SetUpgradedValues();
     //    WeaponSelector();
-
+        UpdatePlayersDamage();
+        
         originalMoveSpeed = forwardMoveSpeed;
     }
 

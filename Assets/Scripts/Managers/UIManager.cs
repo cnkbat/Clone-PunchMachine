@@ -11,20 +11,20 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance {get; private set;}
     [Header("Starting Hud")]
-
     [SerializeField] GameObject startingHud;
+
     bool canHideStartingUI;
     [SerializeField] Button startButton, fireRateButton, inityearButton;
 
-    [SerializeField] Image fingerImage;
-    [SerializeField] float leftRightMovement;
-    [SerializeField] float animTime;
 
         [Tooltip("SettingButton")]
 
     [SerializeField] Image slidingUI;
     [SerializeField] float moveValue;
 
+    [Header("Tap To Start")]
+    [SerializeField] GameObject tapToStartText;
+    [SerializeField] float tapToStartAnimValue, tapToStartAnimDur;
 
     [Header("Game Hud")]
     public GameObject gameHud;
@@ -33,13 +33,12 @@ public class UIManager : MonoBehaviour
 
     [Header("GameHud Attributes")]
     [SerializeField] TMP_Text initYearNumber;
-    [SerializeField] TMP_Text playerMoneyText, playerStarsText, reducerText;
+    [SerializeField] TMP_Text playerMoneyText, reducerText;
     [SerializeField] float reducerMoveValue,reducerMoveDur;
     [SerializeField] Vector2 reducerTextResetPos;
 
     [Header("End Hud")]
     public GameObject endHud;
-    [SerializeField] GameObject initYearImage;
 
     [Header("Upgrades")]
     [SerializeField] TMP_Text fireRateLevelText;
@@ -47,7 +46,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text fireRateCostText, fireRangeCostText, incomeCostText, initYearCostText;
 
     [Header("Slider")]
-    [SerializeField] Slider weaponSlider;
+    [SerializeField] GameObject weaponSlider;
     [SerializeField] Image fillImage;
     [SerializeField] List<GameObject> blackandWhiteImages;
     [SerializeField] List<GameObject> coloredImages;
@@ -62,10 +61,13 @@ public class UIManager : MonoBehaviour
     private void Start() 
     {
         UpdateStartingHudTexts();
-        MoveFinger();
         UpdateWeaponBar();
+        
+        tapToStartText.transform.DOScale(tapToStartAnimValue,tapToStartAnimDur).SetEase(Ease.InOutBack).
+            SetLoops(-1,LoopType.Yoyo);
         reducerText.rectTransform.anchoredPosition = reducerTextResetPos;
         reducerText.gameObject.SetActive(false);
+        
     }
     private void Update() 
     {
@@ -133,13 +135,7 @@ public class UIManager : MonoBehaviour
             fillImage.gameObject.SetActive(false);
         }
     }
-    private void MoveFinger()
-    {
-        fingerImage.rectTransform.DOAnchorPos
-            (new Vector3(fingerImage.rectTransform.anchoredPosition.x + leftRightMovement,
-                fingerImage.rectTransform.anchoredPosition.y),animTime)
-                    .SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
-    }
+
     public void UpdateInitYearText()
     {
         initYearNumber.text = Player.instance.initYear.ToString();
@@ -237,8 +233,7 @@ public class UIManager : MonoBehaviour
     public void FinishHud()
     {
         endHud.SetActive(true);
-        weaponSlider.gameObject.SetActive(false);
-        initYearImage.SetActive(false);
+        weaponSlider.SetActive(false);
         UpdateEndingHudTexts();
     }
 

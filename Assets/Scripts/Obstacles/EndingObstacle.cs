@@ -7,34 +7,24 @@ using DG.Tweening;
 public class EndingObstacle : DamagableObject , IDamagable, IInteractable
 {
     [SerializeField] float health = 10;
-    [SerializeField] GameObject money;
-    [SerializeField] Transform moneySpawnTransform;
     [SerializeField] int moneysValue; 
     [SerializeField] TMP_Text healthText;
-    [SerializeField] Vector3 hitEffectScale;
-    [SerializeField] float hitEffectDur;
-    private Vector3 originalScale;
     bool isDestroyed = false;
+
+    [Header("Anim")]
+    [SerializeField] GameObject animBone;
+    [SerializeField] Vector3 animVector;
+    [SerializeField] float animDur;
+
 
     private void Start() 
     {
-        originalScale = healthText.transform.localScale;
-        UpdateHealthText();        
+        UpdateHealthText();
     }
 
     public void UpdateHealthText()
     {
         healthText.text = Mathf.RoundToInt(health).ToString();
-    }
-
-    private void ObstacleHitEffect()
-    {
-        healthText.transform.DOScale(hitEffectScale,hitEffectDur).OnComplete(ObstacleHitEffectReset);
-    }
-
-    private void ObstacleHitEffectReset()
-    {
-        healthText.transform.DOScale(originalScale,hitEffectDur);
     }
 
     public void Interact()
@@ -45,15 +35,18 @@ public class EndingObstacle : DamagableObject , IDamagable, IInteractable
     public void TakeDamage(float dmg)
     {
         health -= dmg;
-        UpdateHealthText();
-        ObstacleHitEffect();
+        animBone.transform.DORotate(animVector,animDur,RotateMode.Fast).
+            OnComplete(() => animBone.transform.DORotate(Vector3.zero,animDur,RotateMode.Fast));
+
         if(health <= 0)
         {
             if(isDestroyed) return;
             isDestroyed = true;
-            GameObject spawnedMoney = Instantiate(money,moneySpawnTransform.position,Quaternion.identity);
-            spawnedMoney.GetComponent<Money>().value = moneysValue;
+
+            Player.instance.IncrementMoney(moneysValue);
+
             Destroy(gameObject);
         }
+        UpdateHealthText();
     }
 }

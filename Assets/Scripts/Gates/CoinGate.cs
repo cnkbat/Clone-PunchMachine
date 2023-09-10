@@ -8,6 +8,12 @@ public class CoinGate : DamagableObject,IInteractable,IDamagable
     [SerializeField] int gateValue;
     [SerializeField] TMP_Text gateValueText;
     [SerializeField] int increasingValue;
+
+    [Header("Movement")]
+    [SerializeField] bool isMoveable;
+    [SerializeField] float moveValue;
+    [SerializeField] int maxMovementCounter;
+    int movementCounter;
     void Start()
     {
         int randValue = Random.Range(0,coinStartingValues.Count);
@@ -29,8 +35,17 @@ public class CoinGate : DamagableObject,IInteractable,IDamagable
 
     public void TakeDamage(float dmg)
     {
-        gateValue += Mathf.RoundToInt(dmg);
+        gateValue += increasingValue;
         UpdateGateValueText();
+        if(isMoveable)
+        {
+            movementCounter+= 1;
+            transform.position = new Vector3(transform.position.x,transform.position.y , transform.position.z + moveValue);
+            if(movementCounter >= maxMovementCounter)
+            {
+                isMoveable = false;
+            }
+        }
     }
     
 }

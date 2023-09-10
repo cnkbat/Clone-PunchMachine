@@ -24,6 +24,7 @@ public class Punch : MonoBehaviour
     float moveDur;
     RaycastHit hit;
     GameObject strikingObject;
+    bool hasHit;
     private void Start() 
     {
         startingLocalPos = transform.localPosition;
@@ -59,8 +60,14 @@ public class Punch : MonoBehaviour
         moveDur = relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2;
         moveSpeed = fireDist / moveDur;
 
-        if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out hit ,fireDist))
+        int layerMask = 1 << LayerMask.NameToLayer("OnlyPlayer"); // Get the layer mask for "IgnoreRaycast" layer
+        layerMask = ~layerMask; // Invert the layer mask to exclude the "IgnoreRaycast" layer
+
+        if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out hit ,fireDist,layerMask))
         {
+            if(hasHit) return;
+            hasHit = false;
+
             Debug.Log(hit.collider.gameObject.name);
             
             strikingObject = hit.collider.gameObject;
@@ -82,6 +89,8 @@ public class Punch : MonoBehaviour
         // strike rotation geri düzeltcez
         isAttacking = false;
         boxCollider.enabled = false;
+        hasHit = false;
+        
         strikingObject = null;
         transform.DOLocalMove(startingLocalPos, relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2).
             OnUpdate(() => relatedBone.transform.position = transform.position);

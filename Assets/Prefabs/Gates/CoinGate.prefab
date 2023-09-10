@@ -224,7 +224,7 @@ Transform:
   m_GameObject: {fileID: 4014454319821687354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 615940717164645349}
@@ -254,6 +254,9 @@ MonoBehaviour:
   gateValue: 0
   gateValueText: {fileID: 297271083424848268}
   increasingValue: 5
+  isMoveable: 0
+  moveValue: 0
+  maxMovementCounter: 0
 --- !u!65 &5456599834136281168
 BoxCollider:
   m_ObjectHideFlags: 0
