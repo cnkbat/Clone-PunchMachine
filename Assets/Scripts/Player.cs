@@ -5,6 +5,7 @@ using DG.Tweening;
 using System;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.Animations.Rigging;
 
 public class Player : MonoBehaviour
 {
@@ -54,6 +55,10 @@ public class Player : MonoBehaviour
     [SerializeField] float playerDamage;
     public float currentPlayerDamage;
 
+    [Header("Animator")]
+
+    [SerializeField] Animator playerAnimatorController;
+    public GameObject leftHandController, righthandController,armRig;
 
     private void Awake() 
     {
@@ -63,13 +68,16 @@ public class Player : MonoBehaviour
         } 
     }
 
+    private void OnEnable() 
+    {
+        LoadPlayerData();
+        SetUpgradedValues();
+    }
     void Start() 
     {
         rBody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         boxCollider = GetComponent<BoxCollider>();
-     //   LoadPlayerData();
-        SetUpgradedValues();
     //    WeaponSelector();
         UpdatePlayersDamage();
         
@@ -139,7 +147,7 @@ public class Player : MonoBehaviour
     public void KnockbackPlayer()
     {
         knockbacked = true;
-        IncrementPlayersInitYear(GameManager.instance.playerKnockBackValue);
+      //  IncrementPlayersInitYear(GameManager.instance.playerKnockBackValue);
 
         UIManager.instance.DisplayInitYearReduce();
         
@@ -249,7 +257,6 @@ public class Player : MonoBehaviour
     }
 
     // weapon selector
-
     public void PlayerDeath()
     {
         // Player anime girecek
@@ -282,17 +289,19 @@ public class Player : MonoBehaviour
         }
     }
     
-   /* public void SetWeaponsInitYearTextState(bool boolean)
+    public void SetPlayerGameState()
     {
-        for (int i = 0; i < weaponSelectors.Count; i++)
-        {
-            for (int a = 0; a < weaponSelectors[i].GetComponent<WeaponSelector>().weapons.Count; a++)
-            {
-                weaponSelectors[i].GetComponent<WeaponSelector>().weapons[a].GetComponent<Weapon>().UpdateInitYearText(boolean);
-            }
-        }
-    } */
-    
+        playerAnimatorController.SetLayerWeight(playerAnimatorController.GetLayerIndex("Walking"),1);
+        playerAnimatorController.SetLayerWeight(playerAnimatorController.GetLayerIndex("Punches"),1);
+        armRig.GetComponent<Rig>().weight = 1;
+    }
+
+    public void PlayPunchingAnim(GameObject handController,float value)
+    {
+        handController.GetComponent<TwoBoneIKConstraint>().weight = value;
+        handController.GetComponent<ChainIKConstraint>().weight = value;
+    }
+
     // Getters And Setters
     public int GetInGameInitYear()
     {
@@ -333,17 +342,22 @@ public class Player : MonoBehaviour
     public void IncrementPlayersInitYear(int value)
     {
         initYear += value;
+        SetStartingValues();
+        WeaponSelector();
         // SetstartingValue yapcaz
     }
+
     public void IncrementPlayersFireRate(float value)
     {
         fireRate -= value;
+        SetStartingValues();
         // SetstartingValue yapcaz
 
     }
     public void IncrementPlayersFireRange(float value)
     {
         fireRange += value;
+        SetStartingValues();
         // SetstartingValue yapcaz
     }
 

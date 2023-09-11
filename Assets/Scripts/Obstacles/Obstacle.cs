@@ -20,6 +20,7 @@ public class Obstacle : DamagableObject , IDamagable, IInteractable
     void Start()
     {
         currentHealth = maxHealth;
+        
         if(transform.parent.GetComponent<Gate>())
         {
             transform.parent.gameObject.layer = LayerMask.NameToLayer("ObstacledGate");
@@ -32,19 +33,23 @@ public class Obstacle : DamagableObject , IDamagable, IInteractable
     public void Interact()
     {
         Player.instance.KnockbackPlayer();
+
         if(transform.parent.GetComponent<Gate>())
         {
             transform.parent.gameObject.layer = LayerMask.NameToLayer("ObstacledCard");
         }
+
         transform.gameObject.layer = LayerMask.NameToLayer("CantCollidePlayer");
+
+        Debug.Log("inter");
     }
 
     private void HitEffect()
     {
-        CheckValues(healthPercentages[0],parts[0]);
-        CheckValues(healthPercentages[1],parts[1]);
-        CheckValues(healthPercentages[2],parts[2]);
-        CheckValues(healthPercentages[3],parts[3]);
+        for (int i = 0; i < parts.Count; i++)
+        {
+            CheckValues(healthPercentages[i],parts[i]);
+        } 
     }
 
     public void TakeDamage(float damage)
@@ -71,8 +76,11 @@ public class Obstacle : DamagableObject , IDamagable, IInteractable
     {
         if(currentHealth <= maxHealth * healthPercentage && obstaclePart.transform.parent == gameObject.transform)
         {
-            hitPoints.Remove(obstaclePart.transform);
-            Destroy(obstaclePart);
+            Debug.Log(obstaclePart.name);
+           /* hitPoints.Remove(obstaclePart.transform);
+            healthPercentages.Remove(parts.IndexOf(obstaclePart));
+            parts.Remove(obstaclePart);*/
+            obstaclePart.SetActive(false);
 
         }
     }

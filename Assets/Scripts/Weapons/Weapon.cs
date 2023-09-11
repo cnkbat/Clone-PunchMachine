@@ -27,8 +27,8 @@ public class Weapon : MonoBehaviour
 
     private void Update() 
     {
-      /*  if(!GameManager.instance.gameHasStarted) return;
-        if(GameManager.instance.gameHasEnded) return; */
+        if(!GameManager.instance.gameHasStarted) return;
+        if(GameManager.instance.gameHasEnded) return; 
         
         if(!isPunchReturned) return;
     
@@ -53,7 +53,10 @@ public class Weapon : MonoBehaviour
         {
             leftPunch.GetComponent<Punch>().Strike();
             leftPunch.GetComponent<Punch>().firedPoint = transform;
-           
+
+            // animation
+            Player.instance.PlayPunchingAnim(Player.instance.leftHandController,1);
+
             leftPunchTurn = false;
             isPunchReturned = false;
         } 
@@ -61,6 +64,11 @@ public class Weapon : MonoBehaviour
         {
             rightPunch.GetComponent<Punch>().Strike();
             rightPunch.GetComponent<Punch>().firedPoint = transform;
+
+
+            Player.instance.PlayPunchingAnim(Player.instance.righthandController,1);
+
+
             leftPunchTurn = true;
             isPunchReturned = false;
         }       

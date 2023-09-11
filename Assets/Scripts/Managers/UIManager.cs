@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
     private void Start() 
     {
         UpdateStartingHudTexts();
-        UpdateWeaponBar();
+       // UpdateWeaponBar();
         
         tapToStartText.transform.DOScale(tapToStartAnimValue,tapToStartAnimDur).SetEase(Ease.InOutBack).
             SetLoops(-1,LoopType.Yoyo);
@@ -79,17 +79,13 @@ public class UIManager : MonoBehaviour
 
     public void UpdateWeaponBar()
     {
-        for (int i = 0; i < blackandWhiteImages.Count; i++)
-        {
-            blackandWhiteImages[i].SetActive(false);
-        }
         for (int i = 0; i < coloredImages.Count; i++)
         {
             coloredImages[i].SetActive(false);
         }
         
         coloredImages[Player.instance.weaponIndex].SetActive(true);
-        blackandWhiteImages[Player.instance.weaponIndex].SetActive(true);
+        blackandWhiteImages[0].SetActive(true);
 
         float fillValue = (float) Player.instance.initYear -
            (float) Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex];
@@ -120,6 +116,8 @@ public class UIManager : MonoBehaviour
         startButton.interactable = false;
         GameManager.instance.gameHasStarted = true;
         canHideStartingUI = true;
+        Player.instance.SetPlayerGameState();
+
     }
     private void HideStartingUI()
     {
@@ -139,6 +137,7 @@ public class UIManager : MonoBehaviour
     public void UpdateInitYearText()
     {
         initYearNumber.text = Player.instance.initYear.ToString();
+        Debug.Log(Player.instance.initYear);
     }
 
     public void UpdateMoneyText()
@@ -147,7 +146,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateStartingHudTexts()
     {
-        currentLevelText.text = SceneManager.GetActiveScene().name;
+        currentLevelText.text = "Level " + (Player.instance.currentLevelIndex + 1).ToString();
         UpdateInitYearText();
         UpdateMoneyText();
 
@@ -254,4 +253,5 @@ public class UIManager : MonoBehaviour
                         reducerText.gameObject.SetActive(false);
                     });
     }
+    
 }

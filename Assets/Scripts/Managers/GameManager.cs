@@ -84,10 +84,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /*private void Update() 
+    private void Update() 
     {
-        endWeapon.transform.Rotate(rotationSpeed * Time.deltaTime);
-    } */
+        if(endWeapon != null)
+        {
+            endWeapon.transform.Rotate(rotationSpeed * Time.deltaTime);
+        }
+        
+        if(Input.GetKey(KeyCode.A))
+        {
+            UIManager.instance.UpdateInitYearText();
+        }
+    
+    } 
 
     public void EndLevel()
     {

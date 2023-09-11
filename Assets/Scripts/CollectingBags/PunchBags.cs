@@ -45,6 +45,7 @@ public class PunchBags : MonoBehaviour,IDamagable
     public void CollectBag(GameObject collectedBag, Transform leftPlatform)
     {
         float collectionMoveDur  = GameManager.instance.bagCollectionMoveDur;
+
         collectedBag.transform.parent = parentPunchBagsManagerComponent.relatedSlidingGate.transform;
         collectedBag.transform.DOMove(leftPlatform.position,collectionMoveDur).
         OnComplete(FirstStopAnim);
@@ -52,6 +53,7 @@ public class PunchBags : MonoBehaviour,IDamagable
 
     public void FirstStopAnim()
     {
+        transform.DOScale(4f, 1f);
         transform.DOMove(parentPunchBagsManagerComponent.relatedSlidingGate.GetComponent<SlidingGate>().bagCollectionStops[0].position, GameManager.instance.bagCollectionMoveDur)
         .OnComplete(SecondStopAnim);
     }

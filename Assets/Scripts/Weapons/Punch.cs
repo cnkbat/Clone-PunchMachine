@@ -36,6 +36,7 @@ public class Punch : MonoBehaviour
        // relatedBone.transform.position = transform.position;
         if(!isAttacking) return;
         if(!GameManager.instance.gameHasStarted) return;
+        if(GameManager.instance.gameHasEnded) return; 
         if(strikingObject != null) return;
 
         if(!(Vector3.Distance(firedPointCurrent,transform.position) > fireDist))
@@ -62,6 +63,7 @@ public class Punch : MonoBehaviour
 
         int layerMask = 1 << LayerMask.NameToLayer("OnlyPlayer"); // Get the layer mask for "IgnoreRaycast" layer
         layerMask = ~layerMask; // Invert the layer mask to exclude the "IgnoreRaycast" layer
+    
 
         if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out hit ,fireDist,layerMask))
         {
@@ -86,6 +88,9 @@ public class Punch : MonoBehaviour
     }
     private void ReturnPunch()
     {
+        Player.instance.PlayPunchingAnim(Player.instance.leftHandController,0);
+        Player.instance.PlayPunchingAnim(Player.instance.righthandController,0);
+
         // strike rotation geri düzeltcez
         isAttacking = false;
         boxCollider.enabled = false;
@@ -93,7 +98,12 @@ public class Punch : MonoBehaviour
         
         strikingObject = null;
         transform.DOLocalMove(startingLocalPos, relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2).
-            OnUpdate(() => relatedBone.transform.position = transform.position);
+            OnUpdate(() => relatedBone.transform.position = transform.position).
+                OnComplete(() => 
+                {
+                    Player.instance.PlayPunchingAnim(Player.instance.leftHandController,0);
+                    Player.instance.PlayPunchingAnim(Player.instance.righthandController,0);
+                });
         relatedWeapon.GetComponent<Weapon>().isPunchReturned = true;
     }
 

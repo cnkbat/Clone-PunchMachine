@@ -7,7 +7,6 @@ public class SlidingGate : MonoBehaviour
 {
     [Header("Load")]
     public List<GameObject> bagsInLoad = new List<GameObject>();
-
     [SerializeField] int loadValue;
     public int firstLoadInitYear,secondLoadInitYear,thirdLoadInitYear;
     [SerializeField] BoxCollider firstBoxCol,secondBoxCol,thirdBoxCol;
@@ -18,7 +17,9 @@ public class SlidingGate : MonoBehaviour
 
     [Header("Collecting Bag")]
     public List<Transform> bagCollectionStops = new List<Transform>();
-    
+    public List<GameObject> curtains = new List<GameObject>();
+
+
     private void Start() 
     {
         firstBoxCol.enabled = false;
@@ -29,6 +30,9 @@ public class SlidingGate : MonoBehaviour
     public void LoadGate()
     {
         if(bagsInLoad.Count >= GameManager.instance.maxNumOfCollectingBags) return;
+        
+        curtains[0].SetActive(false);
+        curtains.Remove(curtains[0]);
 
         if(bagsInLoad.Count >= loadValue)
         {
@@ -55,20 +59,6 @@ public class SlidingGate : MonoBehaviour
         firstBoxCol.enabled = false;
         secondBoxCol.enabled = false;
         thirdBoxCol.enabled = false;
-    }
-
-    public void CollectBag(GameObject collectedBag, Transform leftPlatform)
-    {
-
-        float collectionMoveDur  = GameManager.instance.bagCollectionMoveDur;
-        collectedBag.transform.DOMove(leftPlatform.position,collectionMoveDur * 2).
-            OnComplete(() => collectedBag.transform.DOMove(bagCollectionStops[0].position,collectionMoveDur)).
-            OnComplete(() => collectedBag.transform.DOMove(bagCollectionStops[1].position,collectionMoveDur)).
-            OnComplete(() => collectedBag.transform.DOMove(bagCollectionStops[2].position,collectionMoveDur)).
-            OnComplete(() => collectedBag.transform.DOMove(bagCollectionStops[3].position,collectionMoveDur)).
-            OnComplete(() => bagsInLoad.Add(collectedBag))
-            .OnComplete(LoadGate);
-        Debug.Log("collectbag on move");
     }
 
 }
