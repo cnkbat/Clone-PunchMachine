@@ -36,10 +36,9 @@ public class GameManager : MonoBehaviour
     public Transform levelSpawnTransform;
 
     [Header("Visual")]
-    public GameObject mainCam,startingCam,endingCam,upgradeCam;
+    public GameObject mainCam;
+    public GameObject startingCam,endingCam;
 
-    [Header("KnockBack")]
-    public int playerKnockBackValue;
     [Header("LeftPlatform")]
     public GameObject leftPlatform;
     public float leftPlatformHeight;
@@ -47,6 +46,9 @@ public class GameManager : MonoBehaviour
     [Header("Collecting Bags")]
     public int maxNumOfCollectingBags;
     public float bagCollectionMoveDur;
+
+    [Header("KnockBack")]
+    public int playerKnockBackValue;
 
     ////
     ////   ***********<SUMMARY>*************
@@ -91,9 +93,9 @@ public class GameManager : MonoBehaviour
             endWeapon.transform.Rotate(rotationSpeed * Time.deltaTime);
         }
         
-        if(Input.GetKey(KeyCode.A))
+        if(Input.GetKey(KeyCode.S))
         {
-            UIManager.instance.UpdateInitYearText();
+            Player.instance.SavePlayerData();
         }
     
     } 

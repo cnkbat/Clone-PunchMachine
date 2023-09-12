@@ -9,6 +9,7 @@ TagManager:
   - MovementSlower
   - MovementFaster
   - FinishLine
+  - GateManager
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - OnlyPlayer
   - Punches
   - ObstacledGate
-  - 
+  - PunchBags
   - 
   - 
   - 
@@ -45,4 +46,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 1
+    uniqueID: 3470020951
     locked: 0

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System;
 using UnityEngine.SceneManagement;
-using System.IO;
 using UnityEngine.Animations.Rigging;
+using Unity.Mathematics;
+
 
 public class Player : MonoBehaviour
 {
@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] Animator playerAnimatorController;
     public GameObject leftHandController, righthandController,armRig;
+    [SerializeField] GameObject stickman;
 
     private void Awake() 
     {
@@ -147,7 +148,7 @@ public class Player : MonoBehaviour
     public void KnockbackPlayer()
     {
         knockbacked = true;
-      //  IncrementPlayersInitYear(GameManager.instance.playerKnockBackValue);
+        //IncrementPlayersInitYear(GameManager.instance.playerKnockBackValue);
 
         UIManager.instance.DisplayInitYearReduce();
         
@@ -253,6 +254,13 @@ public class Player : MonoBehaviour
             currentWeapon.SetActive(true);
         }
         currentWeapon.transform.parent = transform;
+
+        if(currentWeapon.GetComponent<Weapon>().leftHandGlove  != null && currentWeapon.GetComponent<Weapon>().rightHandGlove != null)
+        {
+            currentWeapon.GetComponent<Weapon>().leftHandGlove.SetActive(true);
+            currentWeapon.GetComponent<Weapon>().rightHandGlove.SetActive(true);
+        }
+       
         UpdatePlayersDamage();
     }
 
@@ -261,6 +269,14 @@ public class Player : MonoBehaviour
     {
         // Player anime girecek
         currentLevelIndex++;
+        transform.DOMove
+            (new Vector3(transform.position.x,transform.position.y, transform.position.z - knockbackValue/ 4),knockbackDur);
+        playerAnimatorController.SetLayerWeight(playerAnimatorController.GetLayerIndex("Walking"),0);
+        playerAnimatorController.SetLayerWeight(playerAnimatorController.GetLayerIndex("Punches"),0);
+        stickman.transform.rotation = new Quaternion(0,0,0,0);
+        armRig.GetComponent<Rig>().weight = 1;
+        playerAnimatorController.SetBool("isDefeated",true);
+
     }
     public void UpdatePlayersDamage()
     {
@@ -293,10 +309,11 @@ public class Player : MonoBehaviour
     {
         playerAnimatorController.SetLayerWeight(playerAnimatorController.GetLayerIndex("Walking"),1);
         playerAnimatorController.SetLayerWeight(playerAnimatorController.GetLayerIndex("Punches"),1);
+        stickman.transform.rotation = new Quaternion(0,0,0,0);
         armRig.GetComponent<Rig>().weight = 1;
     }
 
-    public void PlayPunchingAnim(GameObject handController,float value)
+    public void PlayPunchingAnim(GameObject handController,float value , float time)
     {
         handController.GetComponent<TwoBoneIKConstraint>().weight = value;
         handController.GetComponent<ChainIKConstraint>().weight = value;
@@ -349,14 +366,14 @@ public class Player : MonoBehaviour
 
     public void IncrementPlayersFireRate(float value)
     {
-        fireRate -= value;
+        fireRate -= value / 1000;
         SetStartingValues();
         // SetstartingValue yapcaz
 
     }
     public void IncrementPlayersFireRange(float value)
     {
-        fireRange += value;
+        fireRange += value / 1000f;
         SetStartingValues();
         // SetstartingValue yapcaz
     }

@@ -18,11 +18,20 @@ public class Weapon : MonoBehaviour
     public bool leftPunchTurn, rightPunchTurn;
     public bool isPunchReturned = true;
 
+    [Header("Visual")]
+    public GameObject leftHandGlove,rightHandGlove;
+
     private void Start() 
     {
         leftPunch.GetComponent<Punch>().SetRelatedWeapon(gameObject);
         rightPunch.GetComponent<Punch>().SetRelatedWeapon(gameObject);
         leftPunchTurn = true;
+
+        if(leftHandGlove  != null && rightHandGlove != null )
+        {
+            leftHandGlove.SetActive(false);
+            rightHandGlove.SetActive(false);
+        }
     }
 
     private void Update() 
@@ -55,7 +64,7 @@ public class Weapon : MonoBehaviour
             leftPunch.GetComponent<Punch>().firedPoint = transform;
 
             // animation
-            Player.instance.PlayPunchingAnim(Player.instance.leftHandController,1);
+            Player.instance.PlayPunchingAnim(Player.instance.leftHandController,1,0);
 
             leftPunchTurn = false;
             isPunchReturned = false;
@@ -66,7 +75,7 @@ public class Weapon : MonoBehaviour
             rightPunch.GetComponent<Punch>().firedPoint = transform;
 
 
-            Player.instance.PlayPunchingAnim(Player.instance.righthandController,1);
+            Player.instance.PlayPunchingAnim(Player.instance.righthandController,1,rightPunch.GetComponent<Punch>().moveDur);
 
 
             leftPunchTurn = true;

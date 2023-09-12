@@ -341,6 +341,7 @@ MonoBehaviour:
   gateOperatorText: {fileID: 3529904962804000083}
   gateValueText: {fileID: 297271083424848268}
   damageText: {fileID: 343226140139844821}
+  boxCollider: {fileID: 2328739762100502746}
 --- !u!65 &2328739762100502746
 BoxCollider:
   m_ObjectHideFlags: 0

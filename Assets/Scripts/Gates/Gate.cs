@@ -31,13 +31,23 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     [SerializeField] TMP_Text gateValueText;
     [Header("Hit Effect")]
     [SerializeField] TMP_Text damageText;
-
+    [Header("Gate Manager")]
+    public BoxCollider boxCollider;
+    BoxCollider[] gatesBoxcolliders;
     void Start()
     {
         isGateActive = true;
         ChooseOperation();
         UpdateGateText();
         DamageSelectionAndTextUpdate();
+        
+        if(transform.parent.tag == "GateManager")
+        {
+            if(transform.parent.GetComponentInChildren<BoxCollider>())
+            {
+                gatesBoxcolliders = transform.parent.GetComponentsInChildren<BoxCollider>();
+            }
+        }
         
     }
 
@@ -146,6 +156,14 @@ public class Gate : DamagableObject , IDamagable , IInteractable
 
     public void Interact()
     {
+        if(transform.parent.tag == "GateManager")
+        {
+            foreach (var collider in gatesBoxcolliders)
+            {   
+                    collider.enabled = false;
+            }
+        }
+        
         if(isGateActive)
         {
             if(fireRateGate)

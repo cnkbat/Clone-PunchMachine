@@ -191,8 +191,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3957791935125856735}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.00089497, y: 0, z: 0}
+  m_LocalScale: {x: 1.1850479, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4690467357327272955}
@@ -215,10 +215,8 @@ MonoBehaviour:
   hitPoints:
   - {fileID: 2118865670806748788}
   health: 10
-  money: {fileID: 0}
-  moneySpawnTransform: {fileID: 0}
   moneysValue: 0
-  healthText: {fileID: 0}
+  healthText: {fileID: 5706344783202841287}
   animBone: {fileID: 8734108081229816548}
   animVector: {x: 30, y: 0, z: 0}
   animDur: 0.3
@@ -233,8 +231,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4572104, y: 3.5037262, z: 1}
-  m_Center: {x: 0.04078263, y: 1.9536427, z: 0}
+  m_Size: {x: 1.8107045, y: 3.5037262, z: 1}
+  m_Center: {x: 0.0420579, y: 1.9536427, z: 0}
 --- !u!1 &4237863535255109437
 GameObject:
   m_ObjectHideFlags: 0

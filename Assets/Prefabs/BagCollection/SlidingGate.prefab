@@ -5836,6 +5836,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kazanv2
       objectReference: {fileID: 0}
+    - target: {fileID: 987192241444486708, guid: 283a1522d550b8c4a86e6cb6ba0a615e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 283a1522d550b8c4a86e6cb6ba0a615e, type: 3}
 --- !u!4 &741804221594346696 stripped

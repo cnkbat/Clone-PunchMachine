@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2905938215334454818}
   - component: {fileID: 1765379260396786829}
   - component: {fileID: 5663619294255285929}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: PunchBag6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 289673359211605053}
   - component: {fileID: 3007498033407445966}
   - component: {fileID: 5588863432469784899}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: PunchBag3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 7388532067672166077}
   - component: {fileID: 668598605068590526}
   - component: {fileID: 2332051845211024309}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: PunchBag4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 1239552341961745355}
   - component: {fileID: 8242603216395195927}
   - component: {fileID: 5463998571268649623}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: PunchBag1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 4269816188662690214}
   - component: {fileID: 3127536561747319931}
   - component: {fileID: 6048110693816079681}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: PunchBag2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -771,7 +771,7 @@ GameObject:
   - component: {fileID: 5733550242598218887}
   - component: {fileID: 1466856177663179891}
   - component: {fileID: 3909304821536334907}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: PunchBag5
   m_TagString: Untagged
   m_Icon: {fileID: 0}

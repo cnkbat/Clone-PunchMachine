@@ -4,7 +4,6 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -23,8 +22,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] float moveValue;
 
     [Header("Tap To Start")]
-    [SerializeField] GameObject tapToStartText;
+    [SerializeField] TMP_Text tapToStartText;
     [SerializeField] float tapToStartAnimValue, tapToStartAnimDur;
+    bool biggerTurn;
 
     [Header("Game Hud")]
     public GameObject gameHud;
@@ -33,6 +33,8 @@ public class UIManager : MonoBehaviour
 
     [Header("GameHud Attributes")]
     [SerializeField] TMP_Text initYearNumber;
+    [SerializeField] GameObject initYearImage;
+
     [SerializeField] TMP_Text playerMoneyText, reducerText;
     [SerializeField] float reducerMoveValue,reducerMoveDur;
     [SerializeField] Vector2 reducerTextResetPos;
@@ -62,9 +64,10 @@ public class UIManager : MonoBehaviour
     {
         UpdateStartingHudTexts();
        // UpdateWeaponBar();
+
+        tapToStartText.gameObject.transform.DOScaleX(tapToStartAnimValue,tapToStartAnimDur).SetLoops(-1,LoopType.Yoyo);
         
-        tapToStartText.transform.DOScale(tapToStartAnimValue,tapToStartAnimDur).SetEase(Ease.InOutBack).
-            SetLoops(-1,LoopType.Yoyo);
+
         reducerText.rectTransform.anchoredPosition = reducerTextResetPos;
         reducerText.gameObject.SetActive(false);
         
@@ -75,6 +78,8 @@ public class UIManager : MonoBehaviour
         {
             HideStartingUI();
         }   
+    
+        initYearImage.transform.LookAt(GameManager.instance.startingCam.transform,Vector3.up);
     }
 
     public void UpdateWeaponBar()
@@ -113,11 +118,12 @@ public class UIManager : MonoBehaviour
     // STARTING HUD
     public void OnPlayButtonPressed()
     {
+        Debug.Log("PLAY");
         startButton.interactable = false;
         GameManager.instance.gameHasStarted = true;
         canHideStartingUI = true;
+        GameManager.instance.EnableCam(GameManager.instance.mainCam);
         Player.instance.SetPlayerGameState();
-
     }
     private void HideStartingUI()
     {
@@ -197,6 +203,7 @@ public class UIManager : MonoBehaviour
     }
     public void OnInitYearUpdatePressed()
     {
+        Debug.Log("İNİT YEAR");
         if(Player.instance.money >= UpgradeManager.instance.costs[Player.instance.initYearValueIndex])
         {
             Player.instance.money -= UpgradeManager.instance.costs[Player.instance.initYearValueIndex];

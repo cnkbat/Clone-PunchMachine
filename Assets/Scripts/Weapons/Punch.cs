@@ -8,6 +8,7 @@ public class Punch : MonoBehaviour
     [Header("Components")]
     [SerializeField] GameObject relatedWeapon; 
     [SerializeField] BoxCollider boxCollider;
+    
     public Transform firedPoint;
     private Vector3 firedPointCurrent;
     [SerializeField] GameObject relatedBone;
@@ -21,14 +22,13 @@ public class Punch : MonoBehaviour
     [SerializeField] Vector3 startingLocalPos;
 
     [Header("Testing")]
-    float moveDur;
+    public float moveDur;
     RaycastHit hit;
     GameObject strikingObject;
     bool hasHit;
     private void Start() 
     {
         startingLocalPos = transform.localPosition;
-        
     }
 
     void Update()
@@ -61,7 +61,8 @@ public class Punch : MonoBehaviour
         moveDur = relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2;
         moveSpeed = fireDist / moveDur;
 
-        int layerMask = 1 << LayerMask.NameToLayer("OnlyPlayer"); // Get the layer mask for "IgnoreRaycast" layer
+        int layerMask = 1 << LayerMask.NameToLayer("OnlyPlayer");
+        layerMask = 2 << LayerMask.NameToLayer("PunchBags"); // Get the layer mask for "IgnoreRaycast" layer
         layerMask = ~layerMask; // Invert the layer mask to exclude the "IgnoreRaycast" layer
     
 
@@ -88,8 +89,7 @@ public class Punch : MonoBehaviour
     }
     private void ReturnPunch()
     {
-        Player.instance.PlayPunchingAnim(Player.instance.leftHandController,0);
-        Player.instance.PlayPunchingAnim(Player.instance.righthandController,0);
+
 
         // strike rotation geri düzeltcez
         isAttacking = false;
@@ -97,12 +97,17 @@ public class Punch : MonoBehaviour
         hasHit = false;
         
         strikingObject = null;
+
         transform.DOLocalMove(startingLocalPos, relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2).
-            OnUpdate(() => relatedBone.transform.position = transform.position).
-                OnComplete(() => 
+        OnUpdate(() =>
                 {
-                    Player.instance.PlayPunchingAnim(Player.instance.leftHandController,0);
-                    Player.instance.PlayPunchingAnim(Player.instance.righthandController,0);
+                    relatedBone.transform.position = transform.position;
+                }).
+        OnComplete(() => 
+                {
+                    Player.instance.PlayPunchingAnim(Player.instance.leftHandController,0,moveDur);
+                    Player.instance.PlayPunchingAnim(Player.instance.righthandController,0,moveDur);
+                    Debug.Log("oncomplete");
                 });
         relatedWeapon.GetComponent<Weapon>().isPunchReturned = true;
     }
