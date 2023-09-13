@@ -18,7 +18,8 @@ public class SlidingGate : MonoBehaviour
     [Header("Collecting Bag")]
     public List<Transform> bagCollectionStops = new List<Transform>();
     public List<GameObject> curtains = new List<GameObject>();
-
+    [SerializeField] float bucketYAxisMovementValue;
+    [SerializeField] GameObject relatedBone;
 
     private void Start() 
     {
@@ -33,6 +34,9 @@ public class SlidingGate : MonoBehaviour
         
         curtains[0].SetActive(false);
         curtains.Remove(curtains[0]);
+        
+        relatedBone.transform.position = new Vector3(relatedBone.transform.position.x,
+            relatedBone.transform.position.y + bucketYAxisMovementValue, relatedBone.transform.position.z);
 
         if(bagsInLoad.Count >= loadValue)
         {

@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image fillImage;
     [SerializeField] List<GameObject> blackandWhiteImages;
     [SerializeField] List<GameObject> coloredImages;
+    [SerializeField] TMP_Text currentWeaponInitYearText, nextWeaponInitYearText;
 
     private void Awake() 
     {
@@ -63,7 +64,7 @@ public class UIManager : MonoBehaviour
     private void Start() 
     {
         UpdateStartingHudTexts();
-       // UpdateWeaponBar();
+        UpdateWeaponBar();
 
         tapToStartText.gameObject.transform.DOScaleX(tapToStartAnimValue,tapToStartAnimDur).SetLoops(-1,LoopType.Yoyo);
         
@@ -86,16 +87,25 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < coloredImages.Count; i++)
         {
-            coloredImages[i].SetActive(false);
+            coloredImages[i].gameObject.SetActive(false);
         }
         
-        coloredImages[Player.instance.weaponIndex].SetActive(true);
-        blackandWhiteImages[0].SetActive(true);
+        coloredImages[Player.instance.weaponIndex].gameObject.SetActive(true);
+        blackandWhiteImages[0].gameObject.SetActive(true);
 
-        float fillValue = (float) Player.instance.initYear -
-           (float) Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex];
+        float fillValue = (float) Player.instance.GetInGameInitYear() -
+           (float) Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex + 1];
 
-        fillImage.fillAmount = (fillValue + 50) / (float)50;
+        fillImage.fillAmount = (fillValue + 100) / (float)100;
+
+        UpdateWeaponBarTexts(Player.instance.weaponChoosingInitYearsLimit
+            [Player.instance.weaponIndex], Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex + 1]);
+    }
+
+    public void UpdateWeaponBarTexts(int currentValue,int nextValue)
+    {
+        currentWeaponInitYearText.text = currentValue.ToString();
+        nextWeaponInitYearText.text = nextValue.ToString();
     }
 
     public void OnSettingsButtonPressed()
@@ -142,8 +152,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateInitYearText()
     {
-        initYearNumber.text = Player.instance.initYear.ToString();
-        Debug.Log(Player.instance.initYear);
+        initYearNumber.text = Player.instance.GetInGameInitYear().ToString();
     }
 
     public void UpdateMoneyText()

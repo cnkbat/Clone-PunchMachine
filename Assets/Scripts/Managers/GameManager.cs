@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviour
 
     [Header("KnockBack")]
     public int playerKnockBackValue;
+    
+    [Header("Hit FX")]
+    public GameObject hitEffect;
+    public float hitEffectLifeTime;
+    public float hitEffectScale;
 
     ////
     ////   ***********<SUMMARY>*************
@@ -69,7 +74,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-      //  LevelChooser();
+        LevelChooser();
         endWeapon = GameObject.FindGameObjectWithTag("EndWeapon");
     }
 
@@ -93,8 +98,9 @@ public class GameManager : MonoBehaviour
             endWeapon.transform.Rotate(rotationSpeed * Time.deltaTime);
         }
         
-        if(Input.GetKey(KeyCode.S))
+        if(Input.GetKeyDown(KeyCode.S))
         {
+            Debug.Log("save");
             Player.instance.SavePlayerData();
         }
     
@@ -116,7 +122,6 @@ public class GameManager : MonoBehaviour
     {
         EnableCam(endingCam);
     }
-
    
     // buttona basıldığında gerçekleşecek
     public void LoadNextScene()

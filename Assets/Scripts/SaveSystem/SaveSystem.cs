@@ -8,7 +8,7 @@ public static class SaveSystem
     {
 
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.txt";
+        string path = Application.persistentDataPath + "/punchMachine_player.txt";
         FileStream stream = new FileStream(path,FileMode.Create);
 
         PlayerData playersData = new PlayerData(player);    
@@ -20,7 +20,7 @@ public static class SaveSystem
     public static PlayerData LoadPlayerData()
     {
 
-        string path = Application.persistentDataPath + "/player.txt";
+        string path = Application.persistentDataPath + "/punchMachine_player.txt";
 
         if(File.Exists(path))
         {

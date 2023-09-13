@@ -36,6 +36,8 @@ public class CoinGate : DamagableObject,IInteractable,IDamagable
     public void TakeDamage(float dmg)
     {
         gateValue += increasingValue;
+        Instantiate(GameManager.instance.hitEffect,hitPoints[0].position,Quaternion.identity);
+        
         UpdateGateValueText();
         if(isMoveable)
         {

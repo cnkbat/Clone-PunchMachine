@@ -65,6 +65,7 @@ public class Weapon : MonoBehaviour
 
             // animation
             Player.instance.PlayPunchingAnim(Player.instance.leftHandController,1,0);
+         
 
             leftPunchTurn = false;
             isPunchReturned = false;
@@ -76,6 +77,7 @@ public class Weapon : MonoBehaviour
 
 
             Player.instance.PlayPunchingAnim(Player.instance.righthandController,1,rightPunch.GetComponent<Punch>().moveDur);
+            
 
 
             leftPunchTurn = true;
@@ -89,11 +91,11 @@ public class Weapon : MonoBehaviour
     }
     public float GetWeaponsFireRate()
     {
-        return Player.instance.GetInGateFireRate() + fireRate;
+        return Player.instance.GetInGameFireRate() + fireRate;
     }
     private void UpdateFireRate()
     {
-        currentFireRate = Player.instance.GetInGateFireRate() + fireRate;
+        currentFireRate = Player.instance.GetInGameFireRate() + fireRate;
     }
 
 }

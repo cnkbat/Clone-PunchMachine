@@ -79,7 +79,8 @@ public class Player : MonoBehaviour
         rBody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         boxCollider = GetComponent<BoxCollider>();
-    //    WeaponSelector();
+        WeaponSelector();
+        Debug.Log(weaponIndex);
         UpdatePlayersDamage();
         
         originalMoveSpeed = forwardMoveSpeed;
@@ -163,13 +164,13 @@ public class Player : MonoBehaviour
     }    
     private void WeaponSelector()
     {
-        
         if(inGameInitYear <= weaponChoosingInitYearsLimit[0] && currentWeapon != weapons[0])
         {
             for (int i = 0; i < weapons.Count; i++)
             {
                 weapons[i].SetActive(false);
             }
+            Debug.Log("firstweapon");
             currentWeapon = weapons[0];
             weaponIndex = 0;
             currentWeapon.SetActive(true);
@@ -180,6 +181,7 @@ public class Player : MonoBehaviour
             {
                 weapons[i].SetActive(false);
             }
+            Debug.Log("secondweapon");
 
             currentWeapon = weapons[1];
             weaponIndex = 1;
@@ -242,26 +244,25 @@ public class Player : MonoBehaviour
             weaponIndex = 6;
             currentWeapon.SetActive(true);
         }
-        if(inGameInitYear > weaponChoosingInitYearsLimit[6] && initYear <= weaponChoosingInitYearsLimit[7] && currentWeapon != weapons[7])
-        {
-            for (int i = 0; i < weapons.Count; i++)
-            {
-                weapons[i].SetActive(false);
-            }
 
-            weaponIndex = 7;
-            currentWeapon = weapons[7];
-            currentWeapon.SetActive(true);
-        }
         currentWeapon.transform.parent = transform;
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            if(weapons[i].GetComponent<Weapon>().leftHandGlove  != null && weapons[i].GetComponent<Weapon>().rightHandGlove != null)
+            {
+                weapons[i].GetComponent<Weapon>().leftHandGlove.SetActive(false);
+                weapons[i].GetComponent<Weapon>().rightHandGlove.SetActive(false);
+            }
+        }
 
         if(currentWeapon.GetComponent<Weapon>().leftHandGlove  != null && currentWeapon.GetComponent<Weapon>().rightHandGlove != null)
         {
             currentWeapon.GetComponent<Weapon>().leftHandGlove.SetActive(true);
             currentWeapon.GetComponent<Weapon>().rightHandGlove.SetActive(true);
         }
-       
         UpdatePlayersDamage();
+        UIManager.instance.UpdateWeaponBarTexts(Player.instance.weaponChoosingInitYearsLimit
+            [Player.instance.weaponIndex], Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex + 1]);
     }
 
     // weapon selector
@@ -328,7 +329,7 @@ public class Player : MonoBehaviour
     {
         return inGameFireRange;
     }
-    public float GetInGateFireRate()
+    public float GetInGameFireRate()
     {
         return inGameFireRate;
     }
@@ -338,7 +339,7 @@ public class Player : MonoBehaviour
         inGameFireRange = fireRange;
         inGameFireRate = fireRate;
         inGameInitYear = initYear;
-        
+        WeaponSelector();
     }
     public void SetMovementSpeed(float newMoveSpeed)
     {
@@ -355,27 +356,25 @@ public class Player : MonoBehaviour
         SetStartingValues();
     }
 
-    // AYNI ŞEKİLDE BUNLARIN İNGAME OLANI DA LAZIM KAPI FALAN
-    public void IncrementPlayersInitYear(int value)
+    // Ingame
+    public void IncrementInGameFireRange(float value)
     {
-        initYear += value;
-        SetStartingValues();
+        inGameFireRange += value;
+    }
+    public void IncrementCurrentFireRate(float value)
+    {
+        float effectiveValue = value / 100;
+        Debug.Log(effectiveValue);
+        inGameFireRate -= effectiveValue;
+    }
+    public void IncrementInGameInitYear(int value)
+    {
+
+        inGameInitYear += value;
+        UIManager.instance.UpdateInitYearText();
+        UIManager.instance.UpdateWeaponBar();
+
         WeaponSelector();
-        // SetstartingValue yapcaz
-    }
-
-    public void IncrementPlayersFireRate(float value)
-    {
-        fireRate -= value / 1000;
-        SetStartingValues();
-        // SetstartingValue yapcaz
-
-    }
-    public void IncrementPlayersFireRange(float value)
-    {
-        fireRange += value / 1000f;
-        SetStartingValues();
-        // SetstartingValue yapcaz
     }
 
     public void IncrementMoney(int value)

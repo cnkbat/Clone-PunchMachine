@@ -137,6 +137,8 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     void IDamagable.TakeDamage(float dmg)
     {
         gateValue += damage;
+        
+        Instantiate(GameManager.instance.hitEffect,hitPoints[0].position,Quaternion.identity);
 
         if(yearGate)
         {
@@ -160,7 +162,7 @@ public class Gate : DamagableObject , IDamagable , IInteractable
         {
             foreach (var collider in gatesBoxcolliders)
             {   
-                    collider.enabled = false;
+                collider.gameObject.layer = LayerMask.NameToLayer("CantCollidePlayer");
             }
         }
         
@@ -168,15 +170,15 @@ public class Gate : DamagableObject , IDamagable , IInteractable
         {
             if(fireRateGate)
             {
-                Player.instance.IncrementPlayersFireRate(gateValue);
+                Player.instance.IncrementCurrentFireRate(gateValue);
             }
             else if(fireRangeGate)
             {
-                Player.instance.IncrementPlayersFireRange(gateValue);
+                Player.instance.IncrementInGameFireRange(gateValue);
             }
             else if(yearGate)
             {
-                Player.instance.IncrementPlayersInitYear(Mathf.RoundToInt(gateValue));
+                Player.instance.IncrementInGameInitYear(Mathf.RoundToInt(gateValue));
             }
 
             gameObject.SetActive(false);

@@ -90,7 +90,6 @@ public class Punch : MonoBehaviour
     private void ReturnPunch()
     {
 
-
         // strike rotation geri düzeltcez
         isAttacking = false;
         boxCollider.enabled = false;
