@@ -1560,13 +1560,21 @@ MonoBehaviour:
   numOfPunchBagInLoad: 30
   endWeapon: {fileID: 919132148424887123}
   rotationSpeed: {x: 0, y: 100, z: 0}
-  levels:
+  firstLevels:
   - {fileID: 6138602969411106875, guid: 8bb9edd1f15e34840ae81f1909044c80, type: 3}
   - {fileID: 4143277428649643664, guid: ef6b870aa1fbdde4e986eedf170c802f, type: 3}
   - {fileID: 4026207671763611030, guid: ebcdd9332b1860942932a26065718a97, type: 3}
   - {fileID: 1253340131955688096, guid: 49a303205611a3b4c9b22837e71a948f, type: 3}
   - {fileID: 3213016316815966886, guid: 852312b75f2ac184db861313d7dc05ea, type: 3}
+  secondLevels:
+  - {fileID: 1047122079162665040, guid: e4778d84bd7e55f458664ee4e7da52b1, type: 3}
+  - {fileID: 229686474222641460, guid: f43319ddf8e4374428b40d7692658bf4, type: 3}
+  - {fileID: 8445514072409877017, guid: 3746ad6414632f64c9c9b08a3b51f662, type: 3}
+  - {fileID: 686124999210374645, guid: 376fe9b8034ba8a4f964166bac92cb6a, type: 3}
+  - {fileID: 7816436210579453116, guid: 4faa0928a06514b418aab75190e9689c, type: 3}
+  coinLevels: []
   numOfPresetLevels: 4
+  coinLevelIndexs: 
   levelSpawnTransform: {fileID: 937560634}
   mainCam: {fileID: 412892662}
   startingCam: {fileID: 1183931266}
@@ -1793,7 +1801,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.28862172, y: -0.0065483684, z: 0.0019740595, w: 0.9574188}
+  m_LocalRotation: {x: 0.28862172, y: -0.0065484014, z: 0.0019740693, w: 0.9574188}
   m_LocalPosition: {x: 0, y: 3.47, z: 0.93000007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2352,7 +2360,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1183931266}
-  m_LocalRotation: {x: 0.28862172, y: -0.0065483684, z: 0.0019740595, w: 0.9574188}
+  m_LocalRotation: {x: 0.28862172, y: -0.0065484014, z: 0.0019740693, w: 0.9574188}
   m_LocalPosition: {x: -0, y: 3.47, z: 0.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

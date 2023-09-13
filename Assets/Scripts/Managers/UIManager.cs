@@ -93,11 +93,15 @@ public class UIManager : MonoBehaviour
         coloredImages[Player.instance.weaponIndex].gameObject.SetActive(true);
         blackandWhiteImages[0].gameObject.SetActive(true);
 
-        float fillValue = (float) Player.instance.GetInGameInitYear() -
-           (float) Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex + 1];
+        float fillValue = Player.instance.GetInGameInitYear() -
+            Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex];
 
-        fillImage.fillAmount = (fillValue + 100) / (float)100;
+        fillImage.fillAmount = (fillValue+100) / (float)100;
 
+        Debug.Log("inityear value = " +  Player.instance.GetInGameInitYear());
+        Debug.Log("weaponchoosingvlaue value = " +  Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex]);
+        Debug.Log("fillValue " +  fillValue);
+        Debug.Log(Player.instance.weaponIndex + " weapon index");
         UpdateWeaponBarTexts(Player.instance.weaponChoosingInitYearsLimit
             [Player.instance.weaponIndex], Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex + 1]);
     }

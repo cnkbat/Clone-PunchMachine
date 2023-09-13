@@ -31,8 +31,10 @@ public class GameManager : MonoBehaviour
     public Vector3 rotationSpeed = new Vector3(100, 0, 0); // Adjust the rotation speed as needed
 
     [Header("LevelSelector")]
-    public List<GameObject> levels;
+    public List<GameObject> firstLevels;
+    public List<GameObject> secondLevels,coinLevels;
     public int numOfPresetLevels;
+    public List<int> coinLevelIndexs;
     public Transform levelSpawnTransform;
 
     [Header("Visual")]
@@ -74,20 +76,39 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        int firstCoinLevelIndex = 10;
+        coinLevelIndexs.Add(firstCoinLevelIndex);
+
+        for (int i = 1; i < 1000; i++)
+        {
+            
+            int nextCoinLevelIndex = coinLevelIndexs[i-1] + 10;
+            coinLevelIndexs.Add(nextCoinLevelIndex);
+
+        }
+
         LevelChooser();
         endWeapon = GameObject.FindGameObjectWithTag("EndWeapon");
     }
 
     public void LevelChooser()
     {
+        if(coinLevelIndexs.Contains(Player.instance.currentLevelIndex))
+        {
+            int levelRand = Random.Range(0,coinLevels.Count);
+            Instantiate(coinLevels[levelRand],levelSpawnTransform.position,Quaternion.identity);
+            return;
+        }
+
+
         if(Player.instance.currentLevelIndex <= numOfPresetLevels)
         {
-            Instantiate(levels[Player.instance.currentLevelIndex],levelSpawnTransform.position,Quaternion.identity);
+            Instantiate(firstLevels[Player.instance.currentLevelIndex],levelSpawnTransform.position,Quaternion.identity);
         }
         else
         {
-            int levelRand = Random.Range(0,levels.Count);
-            Instantiate(levels[levelRand],levelSpawnTransform.position,Quaternion.identity);
+            int levelRand = Random.Range(0,secondLevels.Count);
+            Instantiate(secondLevels[levelRand],levelSpawnTransform.position,Quaternion.identity);
         }
     }
 
@@ -102,6 +123,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("save");
             Player.instance.SavePlayerData();
+        }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            Player.instance.IncrementInGameInitYear(20);
         }
     
     } 

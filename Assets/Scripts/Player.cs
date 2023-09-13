@@ -170,7 +170,7 @@ public class Player : MonoBehaviour
             {
                 weapons[i].SetActive(false);
             }
-            Debug.Log("firstweapon");
+            
             currentWeapon = weapons[0];
             weaponIndex = 0;
             currentWeapon.SetActive(true);
@@ -181,7 +181,6 @@ public class Player : MonoBehaviour
             {
                 weapons[i].SetActive(false);
             }
-            Debug.Log("secondweapon");
 
             currentWeapon = weapons[1];
             weaponIndex = 1;
@@ -260,6 +259,7 @@ public class Player : MonoBehaviour
             currentWeapon.GetComponent<Weapon>().leftHandGlove.SetActive(true);
             currentWeapon.GetComponent<Weapon>().rightHandGlove.SetActive(true);
         }
+        
         UpdatePlayersDamage();
         UIManager.instance.UpdateWeaponBarTexts(Player.instance.weaponChoosingInitYearsLimit
             [Player.instance.weaponIndex], Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex + 1]);

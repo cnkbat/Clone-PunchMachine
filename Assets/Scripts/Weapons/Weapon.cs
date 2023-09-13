@@ -26,12 +26,6 @@ public class Weapon : MonoBehaviour
         leftPunch.GetComponent<Punch>().SetRelatedWeapon(gameObject);
         rightPunch.GetComponent<Punch>().SetRelatedWeapon(gameObject);
         leftPunchTurn = true;
-
-        if(leftHandGlove  != null && rightHandGlove != null )
-        {
-            leftHandGlove.SetActive(false);
-            rightHandGlove.SetActive(false);
-        }
     }
 
     private void Update() 
