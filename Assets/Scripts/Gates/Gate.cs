@@ -33,7 +33,7 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     [SerializeField] TMP_Text damageText;
     [Header("Gate Manager")]
     public BoxCollider boxCollider;
-    BoxCollider[] gatesBoxcolliders;
+    [SerializeField] BoxCollider[] gatesBoxcolliders;
     void Start()
     {
         isGateActive = true;
@@ -162,7 +162,7 @@ public class Gate : DamagableObject , IDamagable , IInteractable
         {
             foreach (var collider in gatesBoxcolliders)
             {   
-                collider.gameObject.layer = LayerMask.NameToLayer("CantCollidePlayer");
+                collider.enabled = false;
             }
         }
         

@@ -4278,7 +4278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bagsInLoad: []
-  loadValue: 10
+  loadValue: 6
   firstLoadInitYear: 50
   secondLoadInitYear: 100
   thirdLoadInitYear: 150

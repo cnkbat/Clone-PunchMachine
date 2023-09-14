@@ -58,11 +58,14 @@ public class Punch : MonoBehaviour
         boxCollider.enabled = true;
         firedPointCurrent = firedPoint.position;
 
-        moveDur = relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 2;
+        moveDur = relatedWeapon.GetComponent<Weapon>().GetWeaponsFireRate() / 6;
         moveSpeed = fireDist / moveDur;
 
         int layerMask = 1 << LayerMask.NameToLayer("OnlyPlayer");
-        layerMask = 2 << LayerMask.NameToLayer("PunchBags"); // Get the layer mask for "IgnoreRaycast" layer
+
+        // punchbgasi de daha öncesi kapadım sebebi şu o torbalara çarpıyordu içinden geçerken sıkıntı çıkıyor
+
+        //layerMask = 2 << LayerMask.NameToLayer("PunchBags"); // Get the layer mask for "IgnoreRaycast" layer
         layerMask = ~layerMask; // Invert the layer mask to exclude the "IgnoreRaycast" layer
     
 
@@ -116,7 +119,13 @@ public class Punch : MonoBehaviour
         if(other.TryGetComponent(out IDamagable damagable))
         {
             damagable.TakeDamage(Player.instance.currentPlayerDamage);
-        
+            
+            if(other.TryGetComponent<DamagableObject>(out DamagableObject damagableObj))
+            {
+                transform.DOMove(damagableObj.GetComponent<DamagableObject>().hitPoints[0].position,moveDur).
+                OnUpdate(() => relatedBone.transform.position = transform.position);
+            }
+
             ReturnPunch();
         }
     }
