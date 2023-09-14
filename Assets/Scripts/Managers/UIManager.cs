@@ -90,26 +90,23 @@ public class UIManager : MonoBehaviour
             coloredImages[i].gameObject.SetActive(false);
         }
         
-        coloredImages[Player.instance.weaponIndex].gameObject.SetActive(true);
-        blackandWhiteImages[0].gameObject.SetActive(true);
 
         float fillValue = Player.instance.GetInGameInitYear() -
-            Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex];
+            Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex+1];
 
         fillImage.fillAmount = (fillValue+100) / (float)100;
 
-        Debug.Log("inityear value = " +  Player.instance.GetInGameInitYear());
-        Debug.Log("weaponchoosingvlaue value = " +  Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex]);
-        Debug.Log("fillValue " +  fillValue);
-        Debug.Log(Player.instance.weaponIndex + " weapon index");
         UpdateWeaponBarTexts(Player.instance.weaponChoosingInitYearsLimit
             [Player.instance.weaponIndex], Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex + 1]);
+            
+        coloredImages[Player.instance.weaponIndex].gameObject.SetActive(true);
+        blackandWhiteImages[0].gameObject.SetActive(true);
     }
 
     public void UpdateWeaponBarTexts(int currentValue,int nextValue)
     {
-        currentWeaponInitYearText.text = currentValue.ToString();
-        nextWeaponInitYearText.text = nextValue.ToString();
+        currentWeaponInitYearText.text = (currentValue + 1).ToString();
+        nextWeaponInitYearText.text = (nextValue + 1).ToString();
     }
 
     public void OnSettingsButtonPressed()
@@ -150,7 +147,6 @@ public class UIManager : MonoBehaviour
         {
             canHideStartingUI = false;
             startingHud.SetActive(false);
-            fillImage.gameObject.SetActive(false);
         }
     }
 

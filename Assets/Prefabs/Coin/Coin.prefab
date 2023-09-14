@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 5621286888568245751}
   - component: {fileID: 4859754365008358710}
   - component: {fileID: -2952860590349720209}
+  - component: {fileID: 2127937348}
   m_Layer: 8
   m_Name: Coin
   m_TagString: Untagged
@@ -92,6 +93,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.420027, y: 4.0469813, z: 1}
   m_Center: {x: -0.12994243, y: 0.32640627, z: 0}
+--- !u!95 &2127937348
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992523899445679949}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b0c022766972e714c8dac91bd08e130a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &8876946985775375388
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +174,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: 3c8391d7e4dea3044be5176f6ca20bb4, type: 3}
+  - {fileID: 2100000, guid: 33c3da7084dd8634ebc57bb471b57364, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -30,8 +30,10 @@ public class SlidingGate : MonoBehaviour
 
     public void LoadGate()
     {
-        if(bagsInLoad.Count >= GameManager.instance.maxNumOfCollectingBags) return;
+
+        if(bagsInLoad.Count > GameManager.instance.maxNumOfCollectingBags) return;
         
+        if(curtains.Count > 0)
         curtains[0].SetActive(false);
         curtains.Remove(curtains[0]);
         
@@ -50,6 +52,7 @@ public class SlidingGate : MonoBehaviour
         {
             UnlockGate(thirdBoxCol,thirdGate);
         }
+
     }
 
     private void UnlockGate(BoxCollider collider,GameObject gate)

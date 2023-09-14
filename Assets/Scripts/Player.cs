@@ -17,14 +17,19 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float forwardMoveSpeed;
-    [SerializeField] private float negativeLimitValue, positiveLimitValue,maxSwerveAmountPerFrame;
-    private float _lastXPos;
 
     [Header("Movement Changers")]
     public bool knockbacked = false;
     [SerializeField] float knockbackValue = 10f ;
     [SerializeField] float knockbackDur = 0.4f;
     public float slowMovSpeed, fastMovSpeed, originalMoveSpeed;
+
+    [Header("Input Manager")]
+    [SerializeField] private float maxDisplacement = 0.2f;
+    [SerializeField] private float positiveMaxPositionX, negativeMaxPositionX;
+    private Vector2 _anchorPosition;
+    [SerializeField] private float moveSensivity = 1f;
+    private float _lastXPos;
 
     [Header("Saved Attributes")]
     public int initYear;
@@ -61,6 +66,7 @@ public class Player : MonoBehaviour
     public GameObject leftHandController, righthandController,armRig;
     [SerializeField] GameObject stickman;
 
+
     private void Awake() 
     {
         if(instance == null)
@@ -74,6 +80,7 @@ public class Player : MonoBehaviour
         LoadPlayerData();
         SetUpgradedValues();
     }
+
     void Start() 
     {
         rBody = GetComponent<Rigidbody>();
@@ -94,6 +101,7 @@ public class Player : MonoBehaviour
         if(!knockbacked)
         {
             MoveCharacter();
+
         }
     }
 
@@ -120,30 +128,61 @@ public class Player : MonoBehaviour
             SetMovementSpeed(originalMoveSpeed);
         }
     }
+
+    // INPUT SYSTEM
     private void MoveCharacter()
     {
-        Vector3 moveDelta = Vector3.forward;
+        var inputX = GetInput();
+
+            var displacementX = GetDisplacement(inputX);
+
+            displacementX = SmoothOutDisplacement(displacementX);
+
+            var newPosition = GetNewLocalPosition(displacementX);
+
+            newPosition = GetLimitedLocalPosition(newPosition);
+
+            transform.localPosition = newPosition;
+    }
+
+    private Vector3 GetLimitedLocalPosition(Vector3 position)
+    {
+        position.x = Mathf.Clamp(position.x, -negativeMaxPositionX, positiveMaxPositionX);
+        return position;
+    }
+    private Vector3 GetNewLocalPosition(float displacementX)
+    {
+        var lastPosition = transform.localPosition;
+        var newPositionX = lastPosition.x + displacementX * moveSensivity;
+        var newPosition = new Vector3(newPositionX, lastPosition.y, lastPosition.z +  forwardMoveSpeed *Time.deltaTime );
+        return newPosition;
+    }
+    private float GetInput()
+    {
+        var inputX = 0f;
         if (Input.GetMouseButtonDown(0))
         {
-            _lastXPos = Input.mousePosition.x;
+            _anchorPosition = Input.mousePosition;
         }
         else if (Input.GetMouseButton(0))
         {
-            float moveXDelta = Mathf.Clamp(Input.mousePosition.x - _lastXPos, -maxSwerveAmountPerFrame,
-                maxSwerveAmountPerFrame);
-            moveDelta += new Vector3(moveXDelta, 0, 0);
-            _lastXPos = Input.mousePosition.x;
+            inputX = (Input.mousePosition.x - _anchorPosition.x);
+            _anchorPosition = Input.mousePosition;
         }
-
-        moveDelta *= Time.deltaTime * forwardMoveSpeed;
-
-        Vector3 currentPos = transform.position;
-        Vector3 newPos = new Vector3(
-            Mathf.Clamp(currentPos.x + moveDelta.x, -negativeLimitValue, positiveLimitValue),
-            currentPos.y,
-            currentPos.z + moveDelta.z);
-        transform.position = newPos;
+            return inputX;
     }
+
+    private float GetDisplacement(float inputX)
+    {
+        var displacementX = 0f;
+        displacementX = inputX * Time.deltaTime;
+        return displacementX;
+    }
+    private float SmoothOutDisplacement(float displacementX)
+    {
+        return Mathf.Clamp(displacementX, -maxDisplacement, maxDisplacement);
+    }
+    
 
     // player knockBack
     public void KnockbackPlayer()
@@ -164,7 +203,7 @@ public class Player : MonoBehaviour
     }    
     private void WeaponSelector()
     {
-        if(inGameInitYear <= weaponChoosingInitYearsLimit[0] && currentWeapon != weapons[0])
+        if(inGameInitYear <= weaponChoosingInitYearsLimit[1] && currentWeapon != weapons[0])
         {
             for (int i = 0; i < weapons.Count; i++)
             {
@@ -174,8 +213,9 @@ public class Player : MonoBehaviour
             currentWeapon = weapons[0];
             weaponIndex = 0;
             currentWeapon.SetActive(true);
+
         }
-        if(inGameInitYear > weaponChoosingInitYearsLimit[0] && initYear <= weaponChoosingInitYearsLimit[1] && currentWeapon != weapons[1]) 
+        if(inGameInitYear > weaponChoosingInitYearsLimit[1] && initYear <= weaponChoosingInitYearsLimit[2] && currentWeapon != weapons[1]) 
         {
             for (int i = 0; i < weapons.Count; i++)
             {
@@ -185,8 +225,9 @@ public class Player : MonoBehaviour
             currentWeapon = weapons[1];
             weaponIndex = 1;
             currentWeapon.SetActive(true);
+
         }
-        if(inGameInitYear > weaponChoosingInitYearsLimit[1] && initYear <= weaponChoosingInitYearsLimit[2] && currentWeapon != weapons[2])
+        if(inGameInitYear > weaponChoosingInitYearsLimit[2] && initYear <= weaponChoosingInitYearsLimit[3] && currentWeapon != weapons[2])
         {
             for (int i = 0; i < weapons.Count; i++)
             {
@@ -197,7 +238,7 @@ public class Player : MonoBehaviour
             weaponIndex = 2;
             currentWeapon.SetActive(true);
         }
-        if(inGameInitYear > weaponChoosingInitYearsLimit[2] && initYear <= weaponChoosingInitYearsLimit[3] && currentWeapon != weapons[3])
+        if(inGameInitYear > weaponChoosingInitYearsLimit[3] && initYear <= weaponChoosingInitYearsLimit[4] && currentWeapon != weapons[3])
         {
             for (int i = 0; i < weapons.Count; i++)
             {
@@ -209,7 +250,7 @@ public class Player : MonoBehaviour
             currentWeapon.SetActive(true);
         }
 
-        if(inGameInitYear > weaponChoosingInitYearsLimit[3] && initYear <= weaponChoosingInitYearsLimit[4] && currentWeapon != weapons[4])
+        if(inGameInitYear > weaponChoosingInitYearsLimit[4] && initYear <= weaponChoosingInitYearsLimit[5] && currentWeapon != weapons[4])
         {
             for (int i = 0; i < weapons.Count; i++)
             {
@@ -221,7 +262,7 @@ public class Player : MonoBehaviour
             currentWeapon.SetActive(true);
         }
 
-        if(inGameInitYear > weaponChoosingInitYearsLimit[4] && initYear <= weaponChoosingInitYearsLimit[5] && currentWeapon != weapons[5])
+        if(inGameInitYear > weaponChoosingInitYearsLimit[5] && initYear <= weaponChoosingInitYearsLimit[6] && currentWeapon != weapons[5])
         {
             for (int i = 0; i < weapons.Count; i++)
             {
@@ -232,7 +273,7 @@ public class Player : MonoBehaviour
             currentWeapon = weapons[5];
             currentWeapon.SetActive(true);
         }
-        if(inGameInitYear > weaponChoosingInitYearsLimit[5] && initYear <= weaponChoosingInitYearsLimit[6] && currentWeapon != weapons[6])
+        if(inGameInitYear > weaponChoosingInitYearsLimit[6] && initYear <= weaponChoosingInitYearsLimit[7] && currentWeapon != weapons[6])
         {
             for (int i = 0; i < weapons.Count; i++)
             {
@@ -258,6 +299,12 @@ public class Player : MonoBehaviour
         {
             currentWeapon.GetComponent<Weapon>().leftHandGlove.SetActive(true);
             currentWeapon.GetComponent<Weapon>().rightHandGlove.SetActive(true);
+
+            currentWeapon.GetComponent<Weapon>().
+                leftPunch.transform.DOScale(GameManager.instance.playerHandsAnimValue,GameManager.instance.playerHandsAnimDur);
+            currentWeapon.GetComponent<Weapon>().
+                rightPunch.transform.DOScale(GameManager.instance.playerHandsAnimValue,GameManager.instance.playerHandsAnimDur)
+                    .OnComplete(ResetAnim);
         }
         
         UpdatePlayersDamage();
@@ -265,10 +312,18 @@ public class Player : MonoBehaviour
             [Player.instance.weaponIndex], Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex + 1]);
     }
 
+    private void ResetAnim()
+    {
+        currentWeapon.GetComponent<Weapon>().
+                leftPunch.transform.DOScale(1f,GameManager.instance.playerHandsAnimDur);
+
+        currentWeapon.GetComponent<Weapon>().
+                rightPunch.transform.DOScale(1f,GameManager.instance.playerHandsAnimDur);
+    }
     // weapon selector
     public void PlayerDeath()
     {
-        // Player anime girecek
+
         currentLevelIndex++;
         transform.DOMove
             (new Vector3(transform.position.x,transform.position.y, transform.position.z - knockbackValue/ 4),knockbackDur);
@@ -359,22 +414,24 @@ public class Player : MonoBehaviour
     // Ingame
     public void IncrementInGameFireRange(float value)
     {
-        inGameFireRange += value;
+        inGameFireRange += value / GameManager.instance.fireRangeDivisor;
     }
     public void IncrementCurrentFireRate(float value)
     {
-        float effectiveValue = value / 100;
-        Debug.Log(effectiveValue);
+        float effectiveValue = value / GameManager.instance.fireRateDivisor;
+
         inGameFireRate -= effectiveValue;
+        inGameFireRate = Mathf.Clamp(inGameFireRate, GameManager.instance.lowestFireRatePossible, 5f);
+        
     }
     public void IncrementInGameInitYear(int value)
     {
 
         inGameInitYear += value;
-        UIManager.instance.UpdateInitYearText();
-        UIManager.instance.UpdateWeaponBar();
 
         WeaponSelector();
+        UIManager.instance.UpdateInitYearText();
+        UIManager.instance.UpdateWeaponBar();
     }
 
     public void IncrementMoney(int value)

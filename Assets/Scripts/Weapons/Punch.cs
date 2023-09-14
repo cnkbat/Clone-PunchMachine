@@ -85,7 +85,18 @@ public class Punch : MonoBehaviour
             } else hitRandValue = 0;
 
             transform.DOMove(strikingObject.GetComponent<DamagableObject>().hitPoints[hitRandValue].position,moveDur).
-                OnUpdate(() => relatedBone.transform.position = transform.position);
+                OnUpdate(
+                    () =>
+                    {
+                        if(strikingObject)
+                        {
+                            relatedBone.transform.position = transform.position;
+                        }
+                        else 
+                        {
+                            ReturnPunch();
+                        }
+                    } );
         }
 
         isAttacking = true;

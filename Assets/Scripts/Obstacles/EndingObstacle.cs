@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using Unity.Mathematics;
 
 public class EndingObstacle : DamagableObject , IDamagable, IInteractable
 {
@@ -36,7 +37,7 @@ public class EndingObstacle : DamagableObject , IDamagable, IInteractable
     {
         health -= dmg;
         animBone.transform.DORotate(animVector,animDur,RotateMode.Fast).
-            OnComplete(() => animBone.transform.DORotate(Vector3.zero,animDur,RotateMode.Fast));
+            OnComplete(() => animBone.transform.DORotate(Vector3.zero,animDur/6,RotateMode.Fast));
 
         if(health <= 0)
         {
@@ -44,6 +45,9 @@ public class EndingObstacle : DamagableObject , IDamagable, IInteractable
             isDestroyed = true;
 
             Player.instance.IncrementMoney(moneysValue);
+
+            Instantiate(GameManager.instance.coinVFX,
+                new Vector3(transform.position.x,transform.position.y + 2f,transform.position.z), Quaternion.identity);
 
             Destroy(gameObject);
         }

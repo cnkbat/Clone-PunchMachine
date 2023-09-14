@@ -158,8 +158,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 14124094}
-  m_LocalRotation: {x: 0.29030576, y: -0.001947596, z: 0.00059084495, w: 0.95693177}
-  m_LocalPosition: {x: 0, y: 10.09, z: -2.36}
+  m_LocalRotation: {x: 0.24301142, y: -0.0019742805, z: 0.00049460016, w: 0.9700213}
+  m_LocalPosition: {x: 0, y: 8.12, z: -2.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1200,7 +1200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   incomeValues: []
-  incomeStartValue: 40
+  incomeStartValue: 1
   incomeIncreasingValue: 0.2
   initYearValues: 
   initYearStartValue: 500
@@ -1553,11 +1553,13 @@ MonoBehaviour:
   gameHasEnded: 0
   gameHasStarted: 0
   playerDamage: 1
+  playerHandsAnimValue: 1.4
+  playerHandsAnimDur: 0.5
   stickmanFireRate: 4
   stickmanFireRange: 5
   stickmanTravelDur: 0
   stickmanTravelDist: 0
-  numOfPunchBagInLoad: 30
+  numOfPunchBagInLoad: 18
   endWeapon: {fileID: 919132148424887123}
   rotationSpeed: {x: 0, y: 100, z: 0}
   firstLevels:
@@ -1572,6 +1574,11 @@ MonoBehaviour:
   - {fileID: 8445514072409877017, guid: 3746ad6414632f64c9c9b08a3b51f662, type: 3}
   - {fileID: 686124999210374645, guid: 376fe9b8034ba8a4f964166bac92cb6a, type: 3}
   - {fileID: 7816436210579453116, guid: 4faa0928a06514b418aab75190e9689c, type: 3}
+  - {fileID: 3250159594833710108, guid: 68c3c4a18a96488459634958849ef9b7, type: 3}
+  - {fileID: 823838977251932983, guid: aa92f3d6399d37a42b62ddd7d8dee14c, type: 3}
+  - {fileID: 3305153774428894320, guid: ee653523dd2c9f2409495358348bfe58, type: 3}
+  - {fileID: 5680782369539095105, guid: b67e5f5efbe8d724998cdb0b60b5ce8e, type: 3}
+  - {fileID: 5348783193724954731, guid: 4843a570e8c45f2449499ac87a6231e3, type: 3}
   coinLevels: []
   numOfPresetLevels: 4
   coinLevelIndexs: 
@@ -1581,12 +1588,17 @@ MonoBehaviour:
   endingCam: {fileID: 14124094}
   leftPlatform: {fileID: 512876997}
   leftPlatformHeight: 1.5
-  maxNumOfCollectingBags: 30
-  bagCollectionMoveDur: 1
+  maxNumOfCollectingBags: 18
+  bagCollectionMoveDur: 0.5
   playerKnockBackValue: 5
   hitEffect: {fileID: 4081471457045401858, guid: 326cb31b8c97b564399d0f0d8a91ae8b, type: 3}
   hitEffectLifeTime: 0.5
   hitEffectScale: 0.55
+  coinVFX: {fileID: 4392459347756663917, guid: 8832f1b929f4c9b42b50ecfc3e44ce33, type: 3}
+  fireRateDivisor: 1
+  fireRangeDivisor: 1
+  lowestFireRatePossible: 0
+  coinLevelIndexer: 10
 --- !u!114 &794732339 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8761993231756355687, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
@@ -1801,7 +1813,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.28862172, y: -0.0065483684, z: 0.0019740595, w: 0.9574188}
+  m_LocalRotation: {x: 0.28862172, y: -0.0065484014, z: 0.0019740693, w: 0.9574188}
   m_LocalPosition: {x: 0, y: 3.47, z: 0.93000007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2360,7 +2372,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1183931266}
-  m_LocalRotation: {x: 0.28862172, y: -0.0065483684, z: 0.0019740595, w: 0.9574188}
+  m_LocalRotation: {x: 0.28862172, y: -0.0065484014, z: 0.0019740693, w: 0.9574188}
   m_LocalPosition: {x: -0, y: 3.47, z: 0.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3248,15 +3260,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardMoveSpeed: 6.79
-  negativeLimitValue: 6
-  positiveLimitValue: 4
-  maxSwerveAmountPerFrame: 1.9
   knockbacked: 0
   knockbackValue: 10
   knockbackDur: 0.4
   slowMovSpeed: 4
   fastMovSpeed: 12
   originalMoveSpeed: 0
+  maxDisplacement: 0.2
+  positiveMaxPositionX: 4.15
+  negativeMaxPositionX: 4.19
+  moveSensivity: 1
   initYear: 0
   income: 0
   fireRate: 0
@@ -3270,7 +3283,7 @@ MonoBehaviour:
   - {fileID: 298809674}
   - {fileID: 1475166115}
   - {fileID: 504555612}
-  weaponChoosingInitYearsLimit: f401000058020000bc0200002003000084030000e80300004c040000b0040000
+  weaponChoosingInitYearsLimit: f301000057020000bb0200001f03000083030000e70300004b040000af040000
   weaponIndex: 0
   fireRateValueIndex: 0
   fireRangeValueIndex: 0
@@ -5401,30 +5414,6 @@ PrefabInstance:
     - target: {fileID: 3873503064018235550, guid: 09f60f777b0b9034cb8ffdc4fe36ae21, type: 3}
       propertyPath: m_Name
       value: EndPlatform
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873503064018235550, guid: 09f60f777b0b9034cb8ffdc4fe36ae21, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873503064427938280, guid: 09f60f777b0b9034cb8ffdc4fe36ae21, type: 3}
-      propertyPath: m_Size.y
-      value: 1.7791257
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873503064427938280, guid: 09f60f777b0b9034cb8ffdc4fe36ae21, type: 3}
-      propertyPath: m_Center.y
-      value: 0.38956285
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873503064427938280, guid: 09f60f777b0b9034cb8ffdc4fe36ae21, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873503064427938281, guid: 09f60f777b0b9034cb8ffdc4fe36ae21, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.5061
-      objectReference: {fileID: 0}
-    - target: {fileID: 3873503064427938282, guid: 09f60f777b0b9034cb8ffdc4fe36ae21, type: 3}
-      propertyPath: m_Layer
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09f60f777b0b9034cb8ffdc4fe36ae21, type: 3}

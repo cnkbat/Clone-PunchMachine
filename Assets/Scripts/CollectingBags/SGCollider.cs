@@ -10,6 +10,7 @@ public class SGCollider : MonoBehaviour , IInteractable
     {
         Player.instance.IncrementInGameInitYear(givingValue);
         transform.parent.GetComponent<SlidingGate>().LockAllGates();
+        Destroy(gameObject);
     }
     
 }

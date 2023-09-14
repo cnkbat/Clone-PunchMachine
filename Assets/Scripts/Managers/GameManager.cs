@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Player Attributes")]
     public float playerDamage;
+    public float playerHandsAnimValue, playerHandsAnimDur;
 
     [Header("Stickman")]
     public float stickmanFireRate;
@@ -52,10 +53,16 @@ public class GameManager : MonoBehaviour
     [Header("KnockBack")]
     public int playerKnockBackValue;
     
-    [Header("Hit FX")]
+    [Header("VFX")]
     public GameObject hitEffect;
     public float hitEffectLifeTime;
     public float hitEffectScale;
+    public GameObject coinVFX;
+
+    [Header("Balance")]
+    public float fireRateDivisor;
+    public float fireRangeDivisor , lowestFireRatePossible;
+    public int coinLevelIndexer;
 
     ////
     ////   ***********<SUMMARY>*************
@@ -72,20 +79,20 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         } 
-       
-    }
-    private void Start()
-    {
-        int firstCoinLevelIndex = 10;
+
+        int firstCoinLevelIndex = coinLevelIndexer;
         coinLevelIndexs.Add(firstCoinLevelIndex);
 
         for (int i = 1; i < 1000; i++)
         {
             
-            int nextCoinLevelIndex = coinLevelIndexs[i-1] + 10;
+            int nextCoinLevelIndex = coinLevelIndexs[i-1] + coinLevelIndexer;
             coinLevelIndexs.Add(nextCoinLevelIndex);
-
         }
+        
+    }
+    private void Start()
+    {
 
         LevelChooser();
         endWeapon = GameObject.FindGameObjectWithTag("EndWeapon");
@@ -93,13 +100,12 @@ public class GameManager : MonoBehaviour
 
     public void LevelChooser()
     {
-        if(coinLevelIndexs.Contains(Player.instance.currentLevelIndex))
+        if(coinLevelIndexs.Contains(Player.instance.currentLevelIndex) && coinLevels.Count > 0)
         {
             int levelRand = Random.Range(0,coinLevels.Count);
             Instantiate(coinLevels[levelRand],levelSpawnTransform.position,Quaternion.identity);
             return;
         }
-
 
         if(Player.instance.currentLevelIndex <= numOfPresetLevels)
         {
