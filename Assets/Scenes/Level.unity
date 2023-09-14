@@ -535,8 +535,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRange: 5
-  fireRate: 0.5
-  damage: 1
+  fireRate: 0.26
+  damage: 9
   leftPunch: {fileID: 314519343}
   rightPunch: {fileID: 1093552604}
   leftPunchTurn: 0
@@ -948,9 +948,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad5067ef213bf549b175996c09a4f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRange: 5
-  fireRate: 0.5
-  damage: 1
+  fireRange: 7
+  fireRate: 0.24
+  damage: 13
   leftPunch: {fileID: 314519343}
   rightPunch: {fileID: 1093552604}
   leftPunchTurn: 0
@@ -1200,19 +1200,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   incomeValues: []
-  incomeStartValue: 1
-  incomeIncreasingValue: 1
+  incomeStartValue: 40
+  incomeIncreasingValue: 0.2
   initYearValues: 
   initYearStartValue: 500
   initYearIncreasingValue: 10
   fireRateValues: []
   fireRateStartValue: 0.5
-  fireRateIncreasingValue: 0.1
-  secondFireRateIncreasingValue: 0.1
+  fireRateIncreasingValue: 0.03
+  secondFireRateIncreasingValue: 0.01
   fireRateChangeLevelIndex: 5
   fireRangeValues: []
   fireRangeStartValue: 15
-  fireRangeIncreasingValue: 10
+  fireRangeIncreasingValue: 1
   costs: 
   costStartingValue: 100
   costIncreasingValue: 100
@@ -1260,9 +1260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad5067ef213bf549b175996c09a4f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRange: 5
-  fireRate: 0.5
-  damage: 1
+  fireRange: 3
+  fireRate: 0.28
+  damage: 5
   leftPunch: {fileID: 314519343}
   rightPunch: {fileID: 1093552604}
   leftPunchTurn: 0
@@ -2451,9 +2451,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad5067ef213bf549b175996c09a4f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRange: 5
-  fireRate: 0.5
-  damage: 1
+  fireRange: 4
+  fireRate: 0.27
+  damage: 7
   leftPunch: {fileID: 314519343}
   rightPunch: {fileID: 1093552604}
   leftPunchTurn: 0
@@ -2668,9 +2668,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad5067ef213bf549b175996c09a4f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRange: 5
-  fireRate: 0.5
-  damage: 1
+  fireRange: 6
+  fireRate: 0.25
+  damage: 11
   leftPunch: {fileID: 314519343}
   rightPunch: {fileID: 1093552604}
   leftPunchTurn: 0
@@ -2732,8 +2732,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad5067ef213bf549b175996c09a4f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRange: 5
-  fireRate: 0.5
+  fireRange: 1
+  fireRate: 0.3
   damage: 1
   leftPunch: {fileID: 314519343}
   rightPunch: {fileID: 1093552604}
@@ -3050,9 +3050,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad5067ef213bf549b175996c09a4f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRange: 5
-  fireRate: 0.5
-  damage: 1
+  fireRange: 2
+  fireRate: 0.29
+  damage: 3
   leftPunch: {fileID: 314519343}
   rightPunch: {fileID: 1093552604}
   leftPunchTurn: 0

@@ -55,7 +55,7 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     {
         if(!yearGate)
         {
-            int rand = Random.Range(-3,3);
+            int rand = Random.Range(0,2);
             if(rand == 0) ++rand;
 
             damage = rand;
@@ -70,7 +70,7 @@ public class Gate : DamagableObject , IDamagable , IInteractable
 
         else if(yearGate)
         {
-            int rand = Random.Range(2,4);
+            int rand = Random.Range(9,15);
             damage = rand;
             damageText.text = damage.ToString();
             gateValue = Mathf.Clamp(gateValue,-initYearClampValue,initYearClampValue);
