@@ -1595,9 +1595,9 @@ MonoBehaviour:
   hitEffectLifeTime: 0.5
   hitEffectScale: 0.55
   coinVFX: {fileID: 4392459347756663917, guid: 8832f1b929f4c9b42b50ecfc3e44ce33, type: 3}
-  fireRateDivisor: 1
-  fireRangeDivisor: 1
-  lowestFireRatePossible: 0
+  fireRateDivisor: 100
+  fireRangeDivisor: 1000
+  lowestFireRatePossible: -0.2
   coinLevelIndexer: 10
 --- !u!114 &794732339 stripped
 MonoBehaviour:
