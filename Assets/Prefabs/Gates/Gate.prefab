@@ -331,7 +331,7 @@ MonoBehaviour:
   positiveValue: 4
   negativeValue: -4
   gateValue: 0
-  isGateActive: 0
+  isGateActive: 1
   inityearValueMin: 10
   inityearValueMax: 15
   initYearClampValue: 100

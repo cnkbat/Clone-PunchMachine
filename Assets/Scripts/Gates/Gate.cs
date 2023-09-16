@@ -33,9 +33,11 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     [SerializeField] TMP_Text damageText;
     [Header("Gate Manager")]
     public BoxCollider boxCollider;
-    [SerializeField] BoxCollider[] gatesBoxcolliders;
+    [SerializeField] Gate[] gates;
+
     void Start()
     {
+
         isGateActive = true;
         ChooseOperation();
         UpdateGateText();
@@ -43,9 +45,9 @@ public class Gate : DamagableObject , IDamagable , IInteractable
         
         if(transform.parent.tag == "GateManager")
         {
-            if(transform.parent.GetComponentInChildren<BoxCollider>())
+            if(transform.parent.GetComponentInChildren<Gate>())
             {
-                gatesBoxcolliders = transform.parent.GetComponentsInChildren<BoxCollider>();
+                gates = transform.parent.GetComponentsInChildren<Gate>();
             }
         }
         
@@ -153,18 +155,13 @@ public class Gate : DamagableObject , IDamagable , IInteractable
         {
             UpdateTheColorOfGate(redPrimaryMaterial);
         }
+        
         UpdateGateText();
     }
 
     public void Interact()
     {
-        if(transform.parent.tag == "GateManager")
-        {
-            foreach (var collider in gatesBoxcolliders)
-            {   
-                collider.enabled = false;
-            }
-        }
+        if(!isGateActive) return;
         
         if(isGateActive)
         {
@@ -182,6 +179,18 @@ public class Gate : DamagableObject , IDamagable , IInteractable
             }
 
             gameObject.SetActive(false);
+        }
+
+        if(transform.parent.tag == "GateManager")
+        {
+            foreach (var gate in gates)
+            {   
+                if(gate.gameObject.activeSelf && gate.enabled)
+                {
+                    gate.GetComponent<BoxCollider>().enabled = false;
+                    gate.isGateActive = false;
+                }
+            }
         }
     }
 }

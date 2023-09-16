@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &971353592
 Transform:
   m_ObjectHideFlags: 0
@@ -668,7 +668,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0006d4b046cc54346afb2fdf030ad4fb, type: 3}
   m_Controller: {fileID: 9100000, guid: 01ef57b2479f38d40a1ee5d0406b6e34, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
@@ -688,8 +688,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.5407763, y: 12.792102, z: 2.5515156}
-  m_Center: {x: -0.09692235, y: 5.896049, z: -0.090266556}
+  m_Size: {x: 6.045909, y: 12.792102, z: 5.603959}
+  m_Center: {x: -0.03372493, y: 5.896049, z: -0.01724047}
 --- !u!114 &2801685149820905547
 MonoBehaviour:
   m_ObjectHideFlags: 0

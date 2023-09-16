@@ -1017,7 +1017,7 @@ MonoBehaviour:
   initYearImage: {fileID: 168308439}
   playerMoneyText: {fileID: 1171521939}
   reducerText: {fileID: 1307311484}
-  reducerMoveValue: 2
+  reducerMoveValue: -2
   reducerMoveDur: 1
   reducerTextResetPos: {x: 0, y: 0}
   endHud: {fileID: 1546152338}
@@ -1590,7 +1590,7 @@ MonoBehaviour:
   leftPlatformHeight: 1.5
   maxNumOfCollectingBags: 18
   bagCollectionMoveDur: 0.5
-  playerKnockBackValue: 5
+  playerKnockBackValue: 15
   hitEffect: {fileID: 4081471457045401858, guid: 326cb31b8c97b564399d0f0d8a91ae8b, type: 3}
   hitEffectLifeTime: 0.5
   hitEffectScale: 0.55
@@ -3259,10 +3259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7bb23eb7288cbe4ca97ce82b929cd2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardMoveSpeed: 6.79
+  forwardMoveSpeed: 7
   knockbacked: 0
-  knockbackValue: 10
-  knockbackDur: 0.4
+  knockbackValue: 7
+  knockbackDur: 0.35
   slowMovSpeed: 4
   fastMovSpeed: 12
   originalMoveSpeed: 0
@@ -3680,6 +3680,30 @@ PrefabInstance:
       objectReference: {fileID: -6005553652877641805, guid: 9f7e69d009c94434d87dc66d677e5c4f, type: 2}
     - target: {fileID: 8761993231010193373, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761993231159882022, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761993231159882022, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761993231159882022, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761993231159882022, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 260.19995
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761993231159882022, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -166.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761993231159882023, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8761993231273459702, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
