@@ -130,7 +130,8 @@ public class Punch : MonoBehaviour
         if(other.TryGetComponent(out IDamagable damagable))
         {
             damagable.TakeDamage(Player.instance.currentPlayerDamage);
-            
+            CameraShaker.instance.StartShake();
+
             if(other.TryGetComponent<DamagableObject>(out DamagableObject damagableObj))
             {
                 transform.DOMove(damagableObj.GetComponent<DamagableObject>().hitPoints[0].position,moveDur).

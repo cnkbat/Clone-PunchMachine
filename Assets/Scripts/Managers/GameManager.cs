@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Visual")]
     public GameObject mainCam;
-    public GameObject startingCam,endingCam;
+    public GameObject startingCam,endingCam , currentCam;
 
     [Header("LeftPlatform")]
     public GameObject leftPlatform;
@@ -91,9 +91,12 @@ public class GameManager : MonoBehaviour
         }
         
     }
+    private void OnEnable() 
+    {
+        currentCam = startingCam;    
+    }
     private void Start()
     {
-
         LevelChooser();
         endWeapon = GameObject.FindGameObjectWithTag("EndWeapon");
     }
@@ -147,6 +150,7 @@ public class GameManager : MonoBehaviour
     public void EnableCam(GameObject newCam)
     {
         newCam.SetActive(true);
+        currentCam = newCam;
     }
 
     public void FinishLinePassed()
