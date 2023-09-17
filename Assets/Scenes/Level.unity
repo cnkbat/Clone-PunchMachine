@@ -1583,9 +1583,9 @@ MonoBehaviour:
   hitEffectLifeTime: 0.5
   hitEffectScale: 0.55
   coinVFX: {fileID: 4392459347756663917, guid: 8832f1b929f4c9b42b50ecfc3e44ce33, type: 3}
-  fireRateDivisor: 100
-  fireRangeDivisor: 1000
-  lowestFireRatePossible: -0.2
+  fireRateDivisor: 35
+  fireRangeDivisor: 700
+  lowestFireRatePossible: 0.1
   coinLevelIndexer: 10
 --- !u!114 &790322458
 MonoBehaviour:
@@ -1599,8 +1599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29c9aee7e3663468023e399552af0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeTimer: 0.2
-  shakeIntensity: 0.6
+  shakeTimer: 0.3
+  shakeIntensity: 0.7
 --- !u!114 &794732339 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8761993231756355687, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
