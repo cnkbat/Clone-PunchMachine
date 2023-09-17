@@ -9,7 +9,7 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     //Variables
     [Header("Gate Values")]
     [SerializeField] float positiveValue = 4.0f;
-    [SerializeField] float negativeValue = -4.0f;
+    [SerializeField] float negativeValue = -2.0f;
     [SerializeField] float gateValue;   
 
     bool fireRateGate, fireRangeGate;
@@ -57,7 +57,7 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     {
         if(!yearGate)
         {
-            int rand = Random.Range(0,2);
+            int rand = Random.Range(2,3);
             if(rand == 0) ++rand;
 
             damage = rand;
