@@ -36,8 +36,10 @@ public class EndingObstacle : DamagableObject , IDamagable, IInteractable
     public void TakeDamage(float dmg)
     {
         health -= dmg;
+        animDur = Player.instance.GetInGameFireRate() / 2;
+        
         animBone.transform.DORotate(animVector,animDur,RotateMode.Fast).
-            OnComplete(() => animBone.transform.DORotate(Vector3.zero,animDur/6,RotateMode.Fast));
+            OnComplete(() => animBone.transform.DORotate(Vector3.zero,animDur,RotateMode.Fast));
 
         if(health <= 0)
         {

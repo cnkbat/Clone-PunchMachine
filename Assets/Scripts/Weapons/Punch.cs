@@ -101,7 +101,8 @@ public class Punch : MonoBehaviour
 
         isAttacking = true;
     }
-    private void ReturnPunch()
+    
+    public void ReturnPunch()
     {
 
         // strike rotation geri düzeltcez

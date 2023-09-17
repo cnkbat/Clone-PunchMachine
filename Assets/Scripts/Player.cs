@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float forwardMoveSpeed;
 
     [Header("Movement Changers")]
-    public bool knockbacked = false;
+    public bool isKnockbacked = false;
     [SerializeField] float knockbackValue = 10f ;
     [SerializeField] float knockbackDur = 0.4f;
     public float slowMovSpeed, fastMovSpeed, originalMoveSpeed;
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
         if(!GameManager.instance.gameHasStarted) return;
         if(GameManager.instance.gameHasEnded) return;
        
-        if(!knockbacked)
+        if(!isKnockbacked)
         {
             MoveCharacter();
 
@@ -187,11 +187,20 @@ public class Player : MonoBehaviour
     // player knockBack
     public void KnockbackPlayer()
     {
-        knockbacked = true;
-        //IncrementPlayersInitYear(GameManager.instance.playerKnockBackValue);
+        isKnockbacked = true;
+        IncrementInGameInitYear(GameManager.instance.playerKnockBackValue);
 
         UIManager.instance.DisplayInitYearReduce();
+
+        currentWeapon.GetComponent<Weapon>().isRightPunchTurn = false;
+        currentWeapon.GetComponent<Weapon>().leftPunch.GetComponent<Punch>().ReturnPunch();
+        currentWeapon.GetComponent<Weapon>().rightPunch.GetComponent<Punch>().ReturnPunch();
+
+        currentWeapon.GetComponent<Weapon>().isLeftPunchTurn = true;
         
+
+        
+
         transform.DOMove
             (new Vector3(transform.position.x,transform.position.y, transform.position.z - knockbackValue),knockbackDur).
                 OnComplete(ResetKnockback);
@@ -199,7 +208,7 @@ public class Player : MonoBehaviour
     }
     void ResetKnockback()
     {
-        knockbacked = false;
+        isKnockbacked = false;
     }    
     private void WeaponSelector()
     {
@@ -299,15 +308,10 @@ public class Player : MonoBehaviour
         {
             currentWeapon.GetComponent<Weapon>().leftHandGlove.SetActive(true);
             currentWeapon.GetComponent<Weapon>().rightHandGlove.SetActive(true);
-
-            currentWeapon.GetComponent<Weapon>().
-                leftPunch.transform.DOScale(GameManager.instance.playerHandsAnimValue,GameManager.instance.playerHandsAnimDur);
-            currentWeapon.GetComponent<Weapon>().
-                rightPunch.transform.DOScale(GameManager.instance.playerHandsAnimValue,GameManager.instance.playerHandsAnimDur)
-                    .OnComplete(ResetAnim);
         }
         
         UpdatePlayersDamage();
+        
         UIManager.instance.UpdateWeaponBarTexts(Player.instance.weaponChoosingInitYearsLimit
             [Player.instance.weaponIndex], Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex + 1]);
     }

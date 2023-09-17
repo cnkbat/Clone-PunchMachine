@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     [Header("Punching")]
     public GameObject leftPunch ;
     public GameObject rightPunch;
-    public bool leftPunchTurn, rightPunchTurn;
+    public bool isLeftPunchTurn, isRightPunchTurn;
     public bool isPunchReturned = true;
 
     [Header("Visual")]
@@ -25,7 +25,7 @@ public class Weapon : MonoBehaviour
     {
         leftPunch.GetComponent<Punch>().SetRelatedWeapon(gameObject);
         rightPunch.GetComponent<Punch>().SetRelatedWeapon(gameObject);
-        leftPunchTurn = true;
+        isLeftPunchTurn = true;
     }
 
     private void Update() 
@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
         
         if(!isPunchReturned) return;
     
-        if(Player.instance.knockbacked)
+        if(Player.instance.isKnockbacked)
         {
             UpdateFireRate();
             return;
@@ -52,7 +52,7 @@ public class Weapon : MonoBehaviour
     }
     public void Punch()
     {
-        if(leftPunchTurn)
+        if(isLeftPunchTurn)
         {
             leftPunch.GetComponent<Punch>().Strike();
             leftPunch.GetComponent<Punch>().firedPoint = transform;
@@ -61,7 +61,7 @@ public class Weapon : MonoBehaviour
             Player.instance.PlayPunchingAnim(Player.instance.leftHandController,1,0);
          
 
-            leftPunchTurn = false;
+            isLeftPunchTurn = false;
             isPunchReturned = false;
         } 
         else
@@ -74,7 +74,7 @@ public class Weapon : MonoBehaviour
             
 
 
-            leftPunchTurn = true;
+            isLeftPunchTurn = true;
             isPunchReturned = false;
         }       
     }
