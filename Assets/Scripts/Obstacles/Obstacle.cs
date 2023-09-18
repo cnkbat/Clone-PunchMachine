@@ -34,11 +34,6 @@ public class Obstacle : DamagableObject , IDamagable, IInteractable
     {
         Player.instance.KnockbackPlayer();
 
-        if(transform.parent.GetComponent<Gate>())
-        {
-            transform.parent.gameObject.layer = LayerMask.NameToLayer("ObstacledCard");
-        }
-
         transform.gameObject.layer = LayerMask.NameToLayer("CantCollidePlayer");
 
         Debug.Log("inter");

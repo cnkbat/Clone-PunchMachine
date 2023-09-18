@@ -123,7 +123,8 @@ public class Punch : MonoBehaviour
                     Player.instance.PlayPunchingAnim(Player.instance.righthandController,0,moveDur);
                     Debug.Log("oncomplete");
                 });
-        relatedWeapon.GetComponent<Weapon>().isPunchReturned = true;
+
+        Player.instance.currentWeapon.GetComponent<Weapon>().isPunchReturned = true;
     }
 
     private void OnTriggerEnter(Collider other)

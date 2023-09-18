@@ -61,8 +61,8 @@ public class Weapon : MonoBehaviour
             Player.instance.PlayPunchingAnim(Player.instance.leftHandController,1,0);
          
 
-            isLeftPunchTurn = false;
-            isPunchReturned = false;
+            Player.instance.currentWeapon.GetComponent<Weapon>().isLeftPunchTurn = false;
+            Player.instance.currentWeapon.GetComponent<Weapon>().isPunchReturned = false;
         } 
         else
         {
@@ -74,8 +74,8 @@ public class Weapon : MonoBehaviour
             
 
 
-            isLeftPunchTurn = true;
-            isPunchReturned = false;
+            Player.instance.currentWeapon.GetComponent<Weapon>().isLeftPunchTurn = true;
+            Player.instance.currentWeapon.GetComponent<Weapon>().isPunchReturned = false;
         }       
     }
     

@@ -117,6 +117,9 @@ public class GameManager : MonoBehaviour
         else
         {
             int levelRand = Random.Range(0,secondLevels.Count);
+
+            Debug.Log("Level Index = " + levelRand);
+
             Instantiate(secondLevels[levelRand],levelSpawnTransform.position,Quaternion.identity);
         }
     }
@@ -135,7 +138,7 @@ public class GameManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.C))
         {
-            Player.instance.IncrementInGameInitYear(20);
+            Player.instance.IncrementInGameInitYear(15);
         }
     
     } 

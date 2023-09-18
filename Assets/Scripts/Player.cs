@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     private float inGameFireRate,inGameFireRange;
 
     [Header("Weapon")]
-    [SerializeField] GameObject currentWeapon;
+    public GameObject currentWeapon;
 
     [Header("Weapon Selecting")] 
     [SerializeField] List<GameObject> weapons;
@@ -66,6 +66,8 @@ public class Player : MonoBehaviour
     public GameObject leftHandController, righthandController,armRig;
     [SerializeField] GameObject stickman;
 
+    [Header("Punches")]
+    [SerializeField] GameObject leftPunchRefObject, rightPunchRefObject;
 
     private void Awake() 
     {
@@ -191,7 +193,6 @@ public class Player : MonoBehaviour
         IncrementInGameInitYear(GameManager.instance.playerKnockBackValue);
 
         UIManager.instance.DisplayInitYearReduce();
-        ResetPunches();
 
         transform.DOMove
             (new Vector3(transform.position.x,transform.position.y, transform.position.z - knockbackValue),knockbackDur).
@@ -301,6 +302,10 @@ public class Player : MonoBehaviour
             currentWeapon.GetComponent<Weapon>().leftHandGlove.SetActive(true);
             currentWeapon.GetComponent<Weapon>().rightHandGlove.SetActive(true);
         }
+
+        leftPunchRefObject.GetComponent<Punch>().SetRelatedWeapon(currentWeapon);
+        rightPunchRefObject.GetComponent<Punch>().SetRelatedWeapon(currentWeapon);
+
         
         UpdatePlayersDamage();
         ResetPunches();
@@ -311,11 +316,11 @@ public class Player : MonoBehaviour
 
     private void ResetPunches()
     {
-        currentWeapon.GetComponent<Weapon>().isRightPunchTurn = false;
-        currentWeapon.GetComponent<Weapon>().leftPunch.GetComponent<Punch>().ReturnPunch();
-        currentWeapon.GetComponent<Weapon>().rightPunch.GetComponent<Punch>().ReturnPunch();
 
+        currentWeapon.GetComponent<Weapon>().isRightPunchTurn = false;
         currentWeapon.GetComponent<Weapon>().isLeftPunchTurn = true;
+        currentWeapon.GetComponent<Weapon>().isPunchReturned = true;
+
     }
     private void ResetAnim()
     {
