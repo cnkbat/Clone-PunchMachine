@@ -1600,7 +1600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeTimer: 0.3
-  shakeIntensity: 0.7
+  shakeIntensity: 0.5
 --- !u!114 &794732339 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8761993231756355687, guid: f5585318ee596a74b85179ca844ae22d, type: 3}
@@ -1782,7 +1782,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.28862172, y: -0.0065484014, z: 0.0019740693, w: 0.9574188}
+  m_LocalRotation: {x: 0.28862172, y: -0.0065483684, z: 0.0019740595, w: 0.9574188}
   m_LocalPosition: {x: 0, y: 3.47, z: 0.93000007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2341,7 +2341,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1183931266}
-  m_LocalRotation: {x: 0.28862172, y: -0.0065484014, z: 0.0019740693, w: 0.9574188}
+  m_LocalRotation: {x: 0.28862172, y: -0.0065483684, z: 0.0019740595, w: 0.9574188}
   m_LocalPosition: {x: -0, y: 3.47, z: 0.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
