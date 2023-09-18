@@ -86,8 +86,8 @@ public class Player : MonoBehaviour
         rBody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         boxCollider = GetComponent<BoxCollider>();
+
         WeaponSelector();
-        Debug.Log(weaponIndex);
         UpdatePlayersDamage();
         
         originalMoveSpeed = forwardMoveSpeed;
@@ -191,15 +191,7 @@ public class Player : MonoBehaviour
         IncrementInGameInitYear(GameManager.instance.playerKnockBackValue);
 
         UIManager.instance.DisplayInitYearReduce();
-
-        currentWeapon.GetComponent<Weapon>().isRightPunchTurn = false;
-        currentWeapon.GetComponent<Weapon>().leftPunch.GetComponent<Punch>().ReturnPunch();
-        currentWeapon.GetComponent<Weapon>().rightPunch.GetComponent<Punch>().ReturnPunch();
-
-        currentWeapon.GetComponent<Weapon>().isLeftPunchTurn = true;
-        
-
-        
+        ResetPunches();
 
         transform.DOMove
             (new Vector3(transform.position.x,transform.position.y, transform.position.z - knockbackValue),knockbackDur).
@@ -311,11 +303,20 @@ public class Player : MonoBehaviour
         }
         
         UpdatePlayersDamage();
-        
+        ResetPunches();
+
         UIManager.instance.UpdateWeaponBarTexts(Player.instance.weaponChoosingInitYearsLimit
             [Player.instance.weaponIndex], Player.instance.weaponChoosingInitYearsLimit[Player.instance.weaponIndex + 1]);
     }
 
+    private void ResetPunches()
+    {
+        currentWeapon.GetComponent<Weapon>().isRightPunchTurn = false;
+        currentWeapon.GetComponent<Weapon>().leftPunch.GetComponent<Punch>().ReturnPunch();
+        currentWeapon.GetComponent<Weapon>().rightPunch.GetComponent<Punch>().ReturnPunch();
+
+        currentWeapon.GetComponent<Weapon>().isLeftPunchTurn = true;
+    }
     private void ResetAnim()
     {
         currentWeapon.GetComponent<Weapon>().

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3742381369190648760}
   - component: {fileID: 629272563585429756}
   m_Layer: 0
-  m_Name: HitEffect
+  m_Name: Yedek -HitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

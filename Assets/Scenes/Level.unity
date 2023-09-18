@@ -1579,9 +1579,9 @@ MonoBehaviour:
   maxNumOfCollectingBags: 18
   bagCollectionMoveDur: 0.5
   playerKnockBackValue: -15
-  hitEffect: {fileID: 4081471457045401858, guid: 326cb31b8c97b564399d0f0d8a91ae8b, type: 3}
+  hitEffect: {fileID: 8185510649984949449, guid: f7848a03764b72542afba61b8adbcd37, type: 3}
   hitEffectLifeTime: 0.5
-  hitEffectScale: 0.55
+  hitEffectScale: 150
   coinVFX: {fileID: 4392459347756663917, guid: 8832f1b929f4c9b42b50ecfc3e44ce33, type: 3}
   fireRateDivisor: 35
   fireRangeDivisor: 700
