@@ -140,7 +140,8 @@ public class Gate : DamagableObject , IDamagable , IInteractable
     {
         gateValue += damage;
         
-        Instantiate(GameManager.instance.hitEffect,hitPoints[0].position,Quaternion.identity);
+        GameObject spawnedFX = Instantiate(GameManager.instance.hitEffect,hitPoints[0].position,Quaternion.identity);
+        spawnedFX.transform.parent = transform;
 
         if(yearGate)
         {

@@ -33,7 +33,6 @@ public class Punch : MonoBehaviour
 
     void Update()
     {
-       // relatedBone.transform.position = transform.position;
         if(!isAttacking) return;
         if(!GameManager.instance.gameHasStarted) return;
         if(GameManager.instance.gameHasEnded) return; 

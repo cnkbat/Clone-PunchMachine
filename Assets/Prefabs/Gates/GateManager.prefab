@@ -44,6 +44,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2328739762100502746, guid: dbc98f1fed6b01349b4434458361eb38, type: 3}
+      propertyPath: m_Size.x
+      value: 4.489874
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328739762100502746, guid: dbc98f1fed6b01349b4434458361eb38, type: 3}
+      propertyPath: m_Center.x
+      value: -0.012658785
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328739762100502746, guid: dbc98f1fed6b01349b4434458361eb38, type: 3}
+      propertyPath: m_Center.y
+      value: 0.027966037
+      objectReference: {fileID: 0}
     - target: {fileID: 4014454319821687354, guid: dbc98f1fed6b01349b4434458361eb38, type: 3}
       propertyPath: m_Name
       value: Gate (1)
@@ -125,6 +137,18 @@ PrefabInstance:
     - target: {fileID: 2121909047392507648, guid: dbc98f1fed6b01349b4434458361eb38, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328739762100502746, guid: dbc98f1fed6b01349b4434458361eb38, type: 3}
+      propertyPath: m_Size.x
+      value: 4.42062
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328739762100502746, guid: dbc98f1fed6b01349b4434458361eb38, type: 3}
+      propertyPath: m_Center.x
+      value: 0.06520324
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328739762100502746, guid: dbc98f1fed6b01349b4434458361eb38, type: 3}
+      propertyPath: m_Center.y
+      value: 0.027965914
       objectReference: {fileID: 0}
     - target: {fileID: 4014454319821687354, guid: dbc98f1fed6b01349b4434458361eb38, type: 3}
       propertyPath: m_Name

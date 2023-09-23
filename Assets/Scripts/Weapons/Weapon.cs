@@ -63,6 +63,7 @@ public class Weapon : MonoBehaviour
 
             Player.instance.currentWeapon.GetComponent<Weapon>().isLeftPunchTurn = false;
             Player.instance.currentWeapon.GetComponent<Weapon>().isPunchReturned = false;
+            
         } 
         else
         {

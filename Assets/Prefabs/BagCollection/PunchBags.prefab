@@ -633,6 +633,7 @@ MonoBehaviour:
   - {fileID: 2664081388060887331}
   relatedSlidingGate: {fileID: 0}
   boxCollider: {fileID: 6646879041470066978}
+  bags: []
 --- !u!65 &6646879041470066978
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -644,8 +645,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.7903874, y: 2.9694822, z: 1}
-  m_Center: {x: -0.008782268, y: -0.07176626, z: 0}
+  m_Size: {x: 3.7903876, y: 2.9694822, z: 1.0473832}
+  m_Center: {x: -0.008782262, y: -0.071766235, z: -0.023691393}
 --- !u!1 &7440083670559631474
 GameObject:
   m_ObjectHideFlags: 0

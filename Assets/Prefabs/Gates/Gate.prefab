@@ -342,7 +342,7 @@ MonoBehaviour:
   gateValueText: {fileID: 297271083424848268}
   damageText: {fileID: 343226140139844821}
   boxCollider: {fileID: 2328739762100502746}
-  gatesBoxcolliders: []
+  gates: []
 --- !u!65 &2328739762100502746
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -354,8 +354,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.377387, y: 3.7187984, z: 1}
-  m_Center: {x: 0.043585405, y: 0.027965982, z: 0}
+  m_Size: {x: 4.4043093, y: 3.7187984, z: 1}
+  m_Center: {x: 0.057046313, y: 0.027965879, z: 0}
 --- !u!1 &4865823535151861636
 GameObject:
   m_ObjectHideFlags: 0
