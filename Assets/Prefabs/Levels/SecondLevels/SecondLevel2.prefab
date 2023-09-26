@@ -1201,6 +1201,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 229686474222641459}
     m_Modifications:
+    - target: {fileID: 3874822004691483438, guid: 278de36ec1d77b44d9374d8c7a921f5e, type: 3}
+      propertyPath: relatedSlidingGate
+      value: 
+      objectReference: {fileID: 6830001637948279054}
     - target: {fileID: 7267380222349218381, guid: 278de36ec1d77b44d9374d8c7a921f5e, type: 3}
       propertyPath: m_Name
       value: PunchBags

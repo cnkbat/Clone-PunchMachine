@@ -60,6 +60,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7816436210579453115}
     m_Modifications:
+    - target: {fileID: 3874822004691483438, guid: 278de36ec1d77b44d9374d8c7a921f5e, type: 3}
+      propertyPath: relatedSlidingGate
+      value: 
+      objectReference: {fileID: 3567000154351885446}
     - target: {fileID: 7267380222349218381, guid: 278de36ec1d77b44d9374d8c7a921f5e, type: 3}
       propertyPath: m_Name
       value: PunchBags
@@ -1174,6 +1178,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7816436210579453115}
     m_Modifications:
+    - target: {fileID: 3874822004691483438, guid: 278de36ec1d77b44d9374d8c7a921f5e, type: 3}
+      propertyPath: relatedSlidingGate
+      value: 
+      objectReference: {fileID: 3567000154351885446}
     - target: {fileID: 7267380222349218381, guid: 278de36ec1d77b44d9374d8c7a921f5e, type: 3}
       propertyPath: m_Name
       value: PunchBags (4)
@@ -1236,6 +1244,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7816436210579453115}
     m_Modifications:
+    - target: {fileID: 3874822004691483438, guid: 278de36ec1d77b44d9374d8c7a921f5e, type: 3}
+      propertyPath: relatedSlidingGate
+      value: 
+      objectReference: {fileID: 3567000154351885446}
     - target: {fileID: 7267380222349218381, guid: 278de36ec1d77b44d9374d8c7a921f5e, type: 3}
       propertyPath: m_Name
       value: PunchBags (5)
@@ -1489,6 +1501,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac9617414459e1044a21392ebe0e0f20, type: 3}
+--- !u!1 &3567000154351885446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6771453325143110499, guid: ac9617414459e1044a21392ebe0e0f20, type: 3}
+  m_PrefabInstance: {fileID: 7816436210420854757}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4236575606127986236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6247293405475023321, guid: ac9617414459e1044a21392ebe0e0f20, type: 3}
