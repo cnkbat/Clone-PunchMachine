@@ -3278,7 +3278,7 @@ MonoBehaviour:
   isKnockbacked: 0
   knockbackValue: 7
   knockbackDur: 0.35
-  slowMovSpeed: 4
+  slowMovSpeed: 2.5
   fastMovSpeed: 12
   originalMoveSpeed: 0
   maxDisplacement: 0.2
