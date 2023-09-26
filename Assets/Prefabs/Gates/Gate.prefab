@@ -329,7 +329,7 @@ MonoBehaviour:
   hitPoints:
   - {fileID: 8234027402035945621}
   positiveValue: 4
-  negativeValue: -4
+  negativeValue: -1
   gateValue: 0
   isGateActive: 1
   inityearValueMin: 10

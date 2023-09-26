@@ -849,6 +849,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GateManager (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 910477741673919264, guid: 748c7fb54b3d3ca4abb4072604ed78d3, type: 3}
+      propertyPath: maxHealth
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 961784748858650469, guid: 748c7fb54b3d3ca4abb4072604ed78d3, type: 3}
       propertyPath: m_IsActive
       value: 1

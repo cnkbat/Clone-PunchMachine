@@ -55,7 +55,7 @@ MonoBehaviour:
   - {fileID: 1450265980917763614}
   - {fileID: 7088280272657815434}
   - {fileID: 4762788407940820051}
-  maxHealth: 15
+  maxHealth: 5
   fillImage: {fileID: 6637777800858813739}
   healthBar: {fileID: 3296971891184710438}
   parts:

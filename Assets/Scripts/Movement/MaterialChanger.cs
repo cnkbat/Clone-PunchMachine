@@ -17,7 +17,7 @@ public class MaterialChanger : MonoBehaviour
     {
         if(leftPlatformMat)
         {
-            value += Time.deltaTime * 10;
+            value += Time.deltaTime * 15;
         }
         else 
         {

@@ -746,7 +746,7 @@ MonoBehaviour:
   enemyArmRig: {fileID: 256603612506148394}
   startingLocalPos: {x: 0, y: 0, z: 0}
   healthText: {fileID: 5819059252024833244}
-  maxHealth: 15
+  maxHealth: 8
   animator: {fileID: 5795316807619203062}
   animResetDelay: 1
   coin: {fileID: 4992523899445679949, guid: cf4f7d27c3cae6948babe562eccc3f47, type: 3}
