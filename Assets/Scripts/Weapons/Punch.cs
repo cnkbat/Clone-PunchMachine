@@ -87,7 +87,7 @@ public class Punch : MonoBehaviour
                 OnUpdate(
                     () =>
                     {
-                        if(strikingObject)
+                        if(strikingObject && strikingObject.activeSelf)
                         {
                             relatedBone.transform.position = transform.position;
                         }
@@ -104,7 +104,6 @@ public class Punch : MonoBehaviour
     public void ReturnPunch()
     {
 
-        // strike rotation geri düzeltcez
         isAttacking = false;
         boxCollider.enabled = false;
         hasHit = false;
