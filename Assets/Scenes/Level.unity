@@ -3344,10 +3344,10 @@ MonoBehaviour:
   slowMovSpeed: 2.5
   fastMovSpeed: 12
   originalMoveSpeed: 0
-  maxDisplacement: 0.2
+  maxDisplacement: 0.4
   positiveMaxPositionX: 4.15
   negativeMaxPositionX: 4.19
-  moveSensivity: 1
+  moveSensivity: 1.1
   initYear: 0
   income: 0
   fireRate: 0
